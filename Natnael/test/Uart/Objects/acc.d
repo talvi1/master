@@ -1,0 +1,12 @@
+.\objects\acc.o: acc.c
+.\objects\acc.o: D:\uVision\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include\stm32f10x.h
+.\objects\acc.o: .\RTE\_Target_1\RTE_Components.h
+.\objects\acc.o: D:\uVision\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include\core_cm3.h
+.\objects\acc.o: D:\uVision\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\acc.o: D:\uVision\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include\cmsis_version.h
+.\objects\acc.o: D:\uVision\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include\cmsis_compiler.h
+.\objects\acc.o: D:\uVision\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include\cmsis_armcc.h
+.\objects\acc.o: D:\uVision\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include\system_stm32f10x.h
+.\objects\acc.o: acc.h
+.\objects\acc.o: uart.h
+.\objects\acc.o: D:\uVision\ARM\ARMCC\Bin\..\include\stdio.h
