@@ -2,6 +2,7 @@
 #include "acc.h"
 #include "uart.h"
 #include <stdio.h>
+
 uint16_t SPI_DATA_RECEIVE;
 uint16_t get_SPI_DATA_RECEIVE()
 {
@@ -106,18 +107,18 @@ void adxl_write(uint8_t reg, uint8_t value)
 	char num[16];
 	uint8_t data[2];
 	uint16_t write;
-	data[0] = reg ;
+	data[0] = reg;
 	data[1] = value;
+	
 	
 	write = data[0]<<8 | data[1];
 	sprintf(num,"%d", write);
 	print_str(num);
+	newline();
 	start();
 	spi_send(write);
 	spi_recive();
 	stop();
-
-	
 	
 }
 uint16_t adxl_read(uint8_t reg, uint8_t value)
@@ -129,21 +130,56 @@ uint16_t adxl_read(uint8_t reg, uint8_t value)
 		data[1] = value;
 	
 		read = data[0]<<8 | data[1];
-		//sprintf(num,"%d", read);
-		//print_str(num);
+		sprintf(num,"%d", read);
+		print_str(num);
 		start();
 		spi_send(read);
 		acc = acc_data();
 		stop();	
 	
 		sprintf(num,"%d", acc);
+		print_str("Read value ");
 		print_str(num);
 		delay(1000000);
 		newline();
 }
-//void accINIT()
-//{
-//	
-//}
+void get_device_id()
+{
+		char num[16];
+		uint16_t acc;
+	
+		start();
+		spi_send(0x8000);
+		while ((SPI2->SR & SPI_SR_RXNE) != 0x1)
+		{
+		}
+		acc = SPI2->DR;
+		stop();
+		
+		
+}
+void transfer(uint16_t v)
+{
+	uint16_t z;
+	
+	start();
+	spi_send(v);
+	while ((SPI2->SR & SPI_SR_RXNE) != 0x1)
+	{
+	}
+	z = SPI2->DR;
+	
+	stop();
+	
+}
+
+void adxl_powerOn()
+{
+	
+}
+void accINIT()
+{
+	
+}
 
 

@@ -11,5 +11,9 @@ void set_SPI_DATA_RECEIVE(uint16_t v);
 void adxl_write(uint8_t reg, uint8_t value);
 uint16_t adxl_read(uint8_t reg, uint8_t value);
 void accINIT(void);  
- 
+void get_device_id(void);
+
+
+
+
 

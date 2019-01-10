@@ -19,7 +19,10 @@ int main()
 	{
 		cml_control();
 		//adxl_write(0x55, 0x55);
-		adxl_read(0x80,0);
+		//get_device_id();
+transfer(0x1212);
+		delay2(6000);
+
 		
 		//dump_adc();
 	}
