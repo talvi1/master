@@ -28,7 +28,7 @@ Returns:
 void uart_send_message(char v)
 {
 	uint8_t data_t[1];
-	data_t[0] =v;
+	data_t[0] = v;
 	
 	
 	HAL_UART_Transmit(&huart2,(uint8_t *)data_t, 1, 10000);

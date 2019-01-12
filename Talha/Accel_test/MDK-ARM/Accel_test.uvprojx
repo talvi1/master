@@ -417,6 +417,16 @@
               <FileType>5</FileType>
               <FilePath>..\Inc\uart.h</FilePath>
             </File>
+            <File>
+              <FileName>accel_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\accel_i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>accel_i2c.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Inc\accel_i2c.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

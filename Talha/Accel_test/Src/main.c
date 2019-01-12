@@ -45,6 +45,7 @@
 /* USER CODE BEGIN Includes */
 #include <string.h>
 #include "uart.h"
+#include "accel_i2c.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -124,6 +125,8 @@ int main(void)
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
 	print_str("wassup \n\r");
+	uint8_t x = MPU6050_Init(&hi2c1);
+	uart_send_message(x);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -131,9 +134,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-		if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == 1)
-			HAL_GPIO_WritePin(GPIOC, LD4_Pin, GPIO_PIN_SET);
-
+		getAccel(&hi2c1);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
