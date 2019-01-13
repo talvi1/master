@@ -127,6 +127,8 @@ int main(void)
 	print_str("wassup \n\r");
 	uint8_t x = MPU6050_Init(&hi2c1);
 	uart_send_message(x);
+	
+	
   /* USER CODE END 2 */
 
   /* Infinite loop */
