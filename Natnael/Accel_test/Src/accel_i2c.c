@@ -77,7 +77,8 @@ uint8_t getAccel(I2C_HandleTypeDef* I2C)
 //	print_str("\n\r");
 	char c[25];
 	sprintf(c, "%g", z);
-	print_str(c);
+	print_str("{TIMEPLOT|DATA|My Sensor|T|");
+	print_str(c);print_str("}");
 	print_str("\n\r");
 }
 
