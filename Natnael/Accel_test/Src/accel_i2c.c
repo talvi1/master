@@ -1,4 +1,5 @@
 #include "accel_i2c.h"
+#include "MPU6050.h"
 #include "uart.h"
 #include <stdio.h>
 
@@ -29,15 +30,13 @@ uint8_t MPU6050_Init(I2C_HandleTypeDef* I2C)
 		return 0x01;
 	}
 	d1[0] = 0x19;
-	d1[1] = 0x7F;
-	if(HAL_I2C_Master_Transmit(handle, address, (uint8_t *)d1, 2, 1000) != HAL_OK)
-	{
-		return 0x01;
-	}
+	d1[1] = 0x71;
+	while(HAL_I2C_Master_Transmit(handle, address, d1, 2, 1000) != HAL_OK);
+	
 	uint8_t reg[2];
 	reg[0] = 0x1C;
 	reg[1] = 0x00;
-	if(HAL_I2C_Master_Transmit(handle, address, (uint8_t *)reg, 2, 1000) != HAL_OK)
+	if(HAL_I2C_Master_Transmit(handle, address, reg, 2, 1000) != HAL_OK)
 	{
 		return 0x01;
 	}
@@ -81,3 +80,57 @@ uint8_t getAccel(I2C_HandleTypeDef* I2C)
 	print_str(c);
 	print_str("\n\r");
 }
+
+
+void read_register(I2C_HandleTypeDef* I2C, uint8_t reg, char *name, int length)
+{
+	uint8_t data[8];
+	uint8_t address = 0xD0;
+	
+	char c[25];
+	char hex_tmp[33];
+
+	I2C_HandleTypeDef* handle = I2C;
+	if(HAL_I2C_Master_Transmit(handle, address, &reg, 1, 1000) != HAL_OK)
+	{
+		data[0]= 0x01;
+	}
+	
+		while(HAL_I2C_Master_Receive(handle, address, data,length, 1000) != HAL_OK);
+	
+	
+	print_str("Reading register ");
+	print_str(name);
+	
+	sprintf(c, "0x%X", *data);
+	print_str(c);
+	
+	print_str("\n\r");
+	
+	
+	
+}
+void calibration(I2C_HandleTypeDef* I2C)
+{
+	char mesg[25];
+	uint8_t address = 0xD0;
+	I2C_HandleTypeDef* handle = I2C;
+	
+	uint8_t reg[2];
+	reg[0] = ZA_OFFSET_H;
+	reg[1] = 0x02;
+	if(HAL_I2C_Master_Transmit(handle, address, reg, 2, 1000) != HAL_OK)
+	{
+		print_str("Error setting ZA_OFFSET_H") ;
+	}
+	reg[0] = ZA_OFFSET_L_TC;
+	reg[1] = 0x4E;
+	if(HAL_I2C_Master_Transmit(handle, address, reg, 2, 1000) != HAL_OK)
+	{
+		print_str("Error setting ZA_OFFSET_L_TC") ;
+	}
+	
+}
+
+
+

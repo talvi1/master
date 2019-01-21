@@ -26,4 +26,5 @@ accel_test\accel_i2c.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h
 accel_test\accel_i2c.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 accel_test\accel_i2c.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h
 accel_test\accel_i2c.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
+accel_test\accel_i2c.o: ../Inc/MPU6050.h
 accel_test\accel_i2c.o: ../Inc/uart.h

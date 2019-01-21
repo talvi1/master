@@ -500,11 +500,11 @@ ARM Macro Assembler    Page 8
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=accel_test\startup_stm32f100xb.d -oaccel_test\startup_stm32f100xb.
-o -I"C:\Users\alemu20n\Desktop\New folder\capstone2018\Talha\Accel_test\MDK-ARM
-\RTE" -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include -IC:\Keil_v5\ARM\PACK
-\Keil\STM32F1xx_DFP\2.3.0\Device\Include --predefine="__MICROLIB SETA 1" --pred
-efine="__UVISION_VERSION SETA 521" --predefine="_RTE_ SETA 1" --predefine="STM3
-2F10X_MD_VL SETA 1" --list=startup_stm32f100xb.lst startup_stm32f100xb.s
+o -IF:\Project\test\Accel_test\MDK-ARM\RTE -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.
+0\CMSIS\Include -IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include -
+-predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 521" --prede
+fine="_RTE_ SETA 1" --predefine="STM32F10X_MD_VL SETA 1" --list=startup_stm32f1
+00xb.lst startup_stm32f100xb.s
 
 
 

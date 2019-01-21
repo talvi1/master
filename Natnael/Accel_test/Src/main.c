@@ -46,6 +46,7 @@
 #include <string.h>
 #include "uart.h"
 #include "accel_i2c.h"
+#include "MPU6050.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -126,6 +127,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	print_str("wassup \n\r");
 	uint8_t x = MPU6050_Init(&hi2c1);
+	calibration(&hi2c1);
 	uart_send_message(x);
 	
 	
@@ -137,6 +139,19 @@ int main(void)
   {
     /* USER CODE END WHILE */
 		getAccel(&hi2c1);
+//		print_str("\n\r");
+//		read_register(&hi2c1, SMPLRT_DIV, "SMPLRT_DIV  ",1);
+//		read_register(&hi2c1, WHO_AM_I_MPU6050, "WHO_AM_I_MPU6050  ",1);
+//		read_register(&hi2c1, PWR_MGMT_1, "PWR_MGMT_1  ",1);
+//		read_register(&hi2c1, ZA_OFFSET_H, "ZA_OFFSET_H  ",1);
+//		read_register(&hi2c1, ZA_OFFSET_L_TC, "ZA_OFFSET_L_TC  ",1);
+//		read_register(&hi2c1, ZG_OFFS_USRH, "ZG_OFFS_USRH  ",1);
+//		read_register(&hi2c1, ZG_OFFS_USRL, "ZG_OFFS_USRL  ",1);
+//		print_str("\n\r");
+//		read_register(&hi2c1, ACCEL_CONFIG , "ACCEL_CONFIG   ",1);
+//		read_register(&hi2c1, ACCEL_CONFIG , "ACCEL_CONFIG   ",1);
+//		
+//		HAL_Delay(4000);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

@@ -29,3 +29,4 @@ accel_test\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 accel_test\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 accel_test\main.o: ../Inc/uart.h
 accel_test\main.o: ../Inc/accel_i2c.h
+accel_test\main.o: ../Inc/MPU6050.h
