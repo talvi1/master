@@ -21,9 +21,9 @@ while True:
   current = time.monotonic()
   if current - timestamp >= 1.0:
       timestamp = current
-      if not gps.has_fix:
-              print ('Waiting for fix...')
-              continue
+  #    if not gps.has_fix:
+   #           print ('Waiting for fix...')
+    #          continue
       print('=' * 40)  # Print a separator line.
       print('Fix timestamp: {}/{}/{} {:02}:{:02}:{:02}'.format(
       gps.timestamp_utc.tm_mon,   # Grab parts of the time from the
