@@ -12,7 +12,7 @@ while i < 26:
     edges = cv.Canny(blurred,0,75)
     kernel = np.ones((5,5),np.uint8)
     dilate = cv.dilate(edges,kernel,iterations = 5)
-    cv.imwrite('edges' + str(i) + '.jpg', dilate)
+    cv.imwrite('edges' + str(i) + '.jpg', edges)
     i += 1
 # im2, contours, hierarchy = cv.findContours(img,cv.RETR_TREE,cv.CHAIN_APPROX_SIMPLE)
 # cnt = contours[0]
