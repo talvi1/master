@@ -31,7 +31,7 @@ ylabel('Magnitude');
 
 % Construct an FDESIGN object and call its BUTTER method.
 
-N   = 4;   % Order
+N   = 8;   % Order
 Fc1 = 3;   % First Cutoff Frequency
 Fc2 = 150;  % Second Cutoff Frequency
 
