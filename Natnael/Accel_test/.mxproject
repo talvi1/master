@@ -1,7 +1,7 @@
 [PreviousGenFiles]
-HeaderPath=C:/Users/Talha/Dropbox/Classes/Semester 10/ENEL 417/Accel_test/Inc
+HeaderPath=C:/Users/Talha/Dropbox/Classes/Semester 10/repo capstone/capstone2018/Natnael/Accel_test/Inc
 HeaderFiles=stm32f1xx_it.h;stm32f1xx_hal_conf.h;main.h;
-SourcePath=C:/Users/Talha/Dropbox/Classes/Semester 10/ENEL 417/Accel_test/Src
+SourcePath=C:/Users/Talha/Dropbox/Classes/Semester 10/repo capstone/capstone2018/Natnael/Accel_test/Src
 SourceFiles=stm32f1xx_it.c;stm32f1xx_hal_msp.c;main.c;
 
 [PreviousLibFiles]

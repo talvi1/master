@@ -46,6 +46,7 @@
 #include <string.h>
 #include "uart.h"
 #include "accel_i2c.h"
+#include <stdbool.h>
 #include "MPU6050.h"
 /* USER CODE END Includes */
 
@@ -71,6 +72,7 @@ SPI_HandleTypeDef hspi1;
 
 UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
+bool int_flag;
 
 /* USER CODE BEGIN PV */
 
@@ -128,8 +130,14 @@ int main(void)
 	print_str("wassup \n\r");
 	uint8_t x = MPU6050_Init(&hi2c1);
 	calibration(&hi2c1);
-	uart_send_message(x);
+//	uart_send_message(x);
 	
+//	read_register(&hi2c1, SMPLRT_DIV, "SMPLRT_DIV  ",1);
+//	read_register(&hi2c1, ACCEL_CONFIG , "ACCEL_CONFIG   ",1);
+//	read_register(&hi2c1, CONFIG , "CONFIG   ",1);
+//	read_register(&hi2c1, INT_PIN_CFG , "INT_PIN_CFG   ",1);
+//	read_register(&hi2c1, INT_ENABLE , "INT_ENABLE  ",1);
+
 	
   /* USER CODE END 2 */
 
@@ -137,8 +145,16 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
-		getAccel(&hi2c1);
+        if(int_flag == true)
+				{
+					int_flag = false;
+					getAccel(&hi2c1);
+					print_str("\n\r");	
+				}
+			
+	
+//		 HAL_GPIO_TogglePin(GPIOC, LD4_Pin);
+//		getAccel(&hi2c1);
 //		print_str("\n\r");
 //		read_register(&hi2c1, SMPLRT_DIV, "SMPLRT_DIV  ",1);
 //		read_register(&hi2c1, WHO_AM_I_MPU6050, "WHO_AM_I_MPU6050  ",1);
@@ -148,10 +164,12 @@ int main(void)
 //		read_register(&hi2c1, ZG_OFFS_USRH, "ZG_OFFS_USRH  ",1);
 //		read_register(&hi2c1, ZG_OFFS_USRL, "ZG_OFFS_USRL  ",1);
 //		print_str("\n\r");
-//		read_register(&hi2c1, ACCEL_CONFIG , "ACCEL_CONFIG   ",1);
+	
 //		read_register(&hi2c1, ACCEL_CONFIG , "ACCEL_CONFIG   ",1);
 //		
-//		HAL_Delay(4000);
+//	HAL_Delay(400);
+    /* USER CODE END WHILE */
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -348,6 +366,7 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, LD4_Pin|LD3_Pin, GPIO_PIN_RESET);
+
   /*Configure GPIO pins : LD4_Pin LD3_Pin */
   GPIO_InitStruct.Pin = LD4_Pin|LD3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -355,11 +374,16 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-	GPIO_InitStruct.Pin = GPIO_PIN_0;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  /*Configure GPIO pin : PB5 */
+  GPIO_InitStruct.Pin = GPIO_PIN_5;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
+
 }
 
 /* USER CODE BEGIN 4 */

@@ -36,6 +36,9 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f1xx_it.h"
+#include "accel_i2c.h"
+#include <stdbool.h>
+#include "MPU6050.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 /* USER CODE END Includes */
@@ -58,6 +61,7 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
 
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -73,8 +77,10 @@
 /* External variables --------------------------------------------------------*/
 extern UART_HandleTypeDef huart1;
 extern UART_HandleTypeDef huart2;
-/* USER CODE BEGIN EV */
 
+/* USER CODE BEGIN EV */
+extern I2C_HandleTypeDef hi2c1;
+extern bool int_flag;
 /* USER CODE END EV */
 
 /******************************************************************************/
@@ -212,6 +218,24 @@ void SysTick_Handler(void)
 /* For the available peripheral interrupt handler names,                      */
 /* please refer to the startup file (startup_stm32f1xx.s).                    */
 /******************************************************************************/
+
+/**
+  * @brief This function handles EXTI line[9:5] interrupts.
+  */
+void EXTI9_5_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI9_5_IRQn 0 */
+	if(__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_5))
+		{     
+		 HAL_GPIO_TogglePin(GPIOC, LD4_Pin); // toggle LD2 LED  
+		 int_flag = true;		
+		} 
+  /* USER CODE END EXTI9_5_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_5);
+  /* USER CODE BEGIN EXTI9_5_IRQn 1 */
+
+  /* USER CODE END EXTI9_5_IRQn 1 */
+}
 
 /**
   * @brief This function handles USART1 global interrupt.

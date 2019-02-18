@@ -1,10 +1,10 @@
 --cpu Cortex-M3
 "accel_test\startup_stm32f100xb.o"
+"accel_test\uart.o"
+"accel_test\accel_i2c.o"
 "accel_test\main.o"
 "accel_test\stm32f1xx_it.o"
 "accel_test\stm32f1xx_hal_msp.o"
-"accel_test\uart.o"
-"accel_test\accel_i2c.o"
 "accel_test\stm32f1xx_hal_gpio_ex.o"
 "accel_test\stm32f1xx_hal_i2c.o"
 "accel_test\stm32f1xx_hal_spi.o"
