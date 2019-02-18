@@ -59,6 +59,8 @@ uint8_t getAccel(I2C_HandleTypeDef* I2C)
 	uint8_t address = 0xD0;
 	uint8_t data[6];
 	int16_t accel_x, accel_y, accel_z;
+	
+	uint8_t xbeeData[2];
 	if(HAL_I2C_Master_Transmit(handle, address, &reg, 1, 1000) != HAL_OK)
 	{
 		return 0x01;
@@ -70,15 +72,26 @@ uint8_t getAccel(I2C_HandleTypeDef* I2C)
 	accel_x = (int16_t)(data[0] << 8 | data[1]);
 	accel_y = (int16_t)(data[2] << 8 | data[3]);
 	accel_z = (int16_t)(data[4] << 8 | data[5]);
-	float z = accel_z/8192.0;
-	float z1 = 2.596;
-//	uart_send_message(data[0]);
-//	uart_send_message(data[1]);
-//	print_str("\n\r");
-	char c[25];
-	sprintf(c, "%g", z);
-	print_str("{TIMEPLOT|DATA|My Sensor|T|");
-	print_str(c);print_str("}");
+	xbeeData[0] = data[4];
+	xbeeData[1] = data[5];
+	
+//	uart_send_int(data[4]);
+//	uart_send_int(data[5]);
+	
+	
+float z = accel_z/8192.0;
+float z1 = 2.596;
+
+	//print_str("\n\r");
+//char c[25];
+//sprintf(c, "%u", accel_z);
+//print_str("{TIMEPLOT|DATA|My Sensor|T|");
+//print_str(c);print_str("}");
+//print_str(c);
+	
+	send_int(xbeeData,2);
+
+	
 	print_str("\n\r");
 }
 

@@ -9,5 +9,6 @@
 	void uart_send_message(char v);
 	char uart_receive_message(void);
 	void print_str(char * message);
-	
+	void send_int(uint8_t *data_array, int size);
+	void uart_send_int(uint8_t v);
 

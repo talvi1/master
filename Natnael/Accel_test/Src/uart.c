@@ -29,11 +29,18 @@ void uart_send_message(char v)
 {
 	uint8_t data_t[1];
 	data_t[0] = v;
-	
-	
 	HAL_UART_Transmit(&huart2,(uint8_t *)data_t, 1, 10000);
 	
 }
+
+void uart_send_int(uint8_t v)
+{
+	uint8_t data_t[1];
+	data_t[0] = v;
+	HAL_UART_Transmit(&huart2,(uint8_t *)data_t, 1, 10000);
+	
+}
+
 
 /*
 Function: print_str
@@ -53,6 +60,29 @@ void print_str(char * message)
 		{ 
 			uart_send_message(*message);
 			message++;
+		}
+		
+}
+	
+
+/*
+Function: print_str
+		   used to send multiple chars.
+			print on byte at time.
+Parameters:
+	char * message = pointer to the char array location 
+Returns:
+	N/A
+
+*/
+void send_int(uint8_t *data_array, int size)
+	{
+		int i=0;
+		//uint16_t messagelength = strlen(message);
+		for ( i=0; i< size; i++)
+		{ 
+			uart_send_int(*data_array);
+			data_array++;
 		}
 		
 }

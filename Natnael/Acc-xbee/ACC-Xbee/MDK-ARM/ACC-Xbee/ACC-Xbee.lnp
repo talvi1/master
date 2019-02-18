@@ -1,0 +1,28 @@
+--cpu Cortex-M3
+"acc-xbee\startup_stm32f100xb.o"
+"acc-xbee\accel_i2c.o"
+"acc-xbee\uart.o"
+"acc-xbee\main.o"
+"acc-xbee\stm32f1xx_it.o"
+"acc-xbee\stm32f1xx_hal_msp.o"
+"acc-xbee\stm32f1xx_hal_gpio_ex.o"
+"acc-xbee\stm32f1xx_hal_i2c.o"
+"acc-xbee\stm32f1xx_hal_spi.o"
+"acc-xbee\stm32f1xx_hal_spi_ex.o"
+"acc-xbee\stm32f1xx_hal_tim.o"
+"acc-xbee\stm32f1xx_hal_tim_ex.o"
+"acc-xbee\stm32f1xx_hal_uart.o"
+"acc-xbee\stm32f1xx_hal.o"
+"acc-xbee\stm32f1xx_hal_rcc.o"
+"acc-xbee\stm32f1xx_hal_rcc_ex.o"
+"acc-xbee\stm32f1xx_hal_gpio.o"
+"acc-xbee\stm32f1xx_hal_dma.o"
+"acc-xbee\stm32f1xx_hal_cortex.o"
+"acc-xbee\stm32f1xx_hal_pwr.o"
+"acc-xbee\stm32f1xx_hal_flash.o"
+"acc-xbee\stm32f1xx_hal_flash_ex.o"
+"acc-xbee\system_stm32f1xx.o"
+--library_type=microlib --strict --scatter "ACC-Xbee\ACC-Xbee.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "ACC-Xbee.map" -o ACC-Xbee\ACC-Xbee.axf
