@@ -75,18 +75,26 @@ Returns:
 	N/A
 
 */
-void send_int(uint8_t *data_array, int size)
+void send_arr(uint8_t *data_array, int size)
 	{
 		int i=0;
 		//uint16_t messagelength = strlen(message);
 		for ( i=0; i< size; i++)
 		{ 
-			uart_send_int(*data_array);
+			uart_send_message(*data_array);
 			data_array++;
 		}
 		
 }
+void print_arr(uint8_t *data_array, int size)
+{
 	
+	for(int i = 0; i < size; i++)
+	{
+		
+	}
+	
+}
 
 
 

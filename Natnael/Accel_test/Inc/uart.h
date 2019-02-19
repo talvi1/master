@@ -11,4 +11,4 @@
 	void print_str(char * message);
 	void send_int(uint8_t *data_array, int size);
 	void uart_send_int(uint8_t v);
-
+	void print_arr(uint8_t *data_array, int size);

@@ -52,7 +52,7 @@ uint8_t MPU6050_Init(I2C_HandleTypeDef* I2C)
 	}
 	return var;
 }
-uint8_t getAccel(I2C_HandleTypeDef* I2C)
+uint8_t getAccel(I2C_HandleTypeDef* I2C, uint8_t *accel_data, uint8_t index)
 {
 	I2C_HandleTypeDef* handle = I2C;
 	uint8_t reg = 0x3B;
@@ -72,6 +72,8 @@ uint8_t getAccel(I2C_HandleTypeDef* I2C)
 	accel_x = (int16_t)(data[0] << 8 | data[1]);
 	accel_y = (int16_t)(data[2] << 8 | data[3]);
 	accel_z = (int16_t)(data[4] << 8 | data[5]);
+	accel_data[index] = data[4];
+	accel_data[index+1] = data[5];
 //	xbeeData[0] = data[4];
 //	xbeeData[1] = data[5];
 	
@@ -79,21 +81,21 @@ uint8_t getAccel(I2C_HandleTypeDef* I2C)
 	//uart_send_int(data[5]);
 	
 	
-	float z = accel_z/2048.0;
+//	float z = accel_z/2048.0;
 //	float z1 = 2.596;
 
 	//print_str("\n\r");
-	char c[25];
-	sprintf(c, "%f", z);
+//	char c[25];
+//	sprintf(c, "%f", z);
 //print_str("{TIMEPLOT|DATA|My Sensor|T|");
-	print_str(c);
+//	print_str(c);
 	//print_str("}");
 //print_str(c);
 	
 //	send_int(xbeeData,2);
 
 	
-	print_str("\n\r");
+//	print_str("\n\r");
 }
 
 

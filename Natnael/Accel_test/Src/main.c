@@ -73,6 +73,8 @@ SPI_HandleTypeDef hspi1;
 UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 bool int_flag;
+uint8_t accel_z_data[100];
+uint8_t accel_index = 0;
 
 /* USER CODE BEGIN PV */
 
@@ -148,10 +150,23 @@ int main(void)
         if(int_flag == true)
 				{
 					int_flag = false;
-					getAccel(&hi2c1);
-					print_str("\n\r");	
+					getAccel(&hi2c1, accel_z_data, accel_index);
+					accel_index++; 
+//					char c[25];
+//					sprintf(c, "%u", accel_index);
+//					print_str(c);
+//					print_str("\n\r");
+//					char c1[25];
+//					sprintf(c, "%u", accel_z_data[accel_index]);
+//					print_str(c);
+//					print_str("\n\r");
+					//uart_send_message(accel_z_data[accel_index]);
 				}
-			
+				if(accel_index == 100)
+				{
+						
+						accel_index = 0;
+				}
 	
 //		 HAL_GPIO_TogglePin(GPIOC, LD4_Pin);
 //		getAccel(&hi2c1);
