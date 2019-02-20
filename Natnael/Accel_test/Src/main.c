@@ -72,12 +72,13 @@ SPI_HandleTypeDef hspi1;
 
 UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
+
+
+/* USER CODE BEGIN PV */
 bool int_flag;
 uint8_t accel_z_data[100];
 uint8_t accel_index = 0;
-
-/* USER CODE BEGIN PV */
-
+int16_t tempData = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -150,22 +151,30 @@ int main(void)
         if(int_flag == true)
 				{
 					int_flag = false;
-					getAccel(&hi2c1, accel_z_data, accel_index);
-					accel_index++; 
+					tempData = getAccel(&hi2c1);
+					char c[25];
+					sprintf(c, "%x", tempData);
+					print_str("\n\r");
+					print_str(c);
+					accel_z_data[accel_index] = (tempData & 0xff00)>>8;
+					accel_z_data[accel_index+1] = tempData & 0xff;
+//					accel_index++; 
 //					char c[25];
 //					sprintf(c, "%u", accel_index);
 //					print_str(c);
 //					print_str("\n\r");
-//					char c1[25];
+//					//char c1[25];
 //					sprintf(c, "%u", accel_z_data[accel_index]);
 //					print_str(c);
 //					print_str("\n\r");
 					//uart_send_message(accel_z_data[accel_index]);
+					accel_index = accel_index+2;
 				}
 				if(accel_index == 100)
 				{
-						
+					  send_to_xbee(accel_z_data);
 						accel_index = 0;
+						
 				}
 	
 //		 HAL_GPIO_TogglePin(GPIOC, LD4_Pin);

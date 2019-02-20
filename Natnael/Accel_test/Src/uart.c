@@ -6,6 +6,7 @@
  #include <stdbool.h>
 	
 extern UART_HandleTypeDef huart2;	
+extern UART_HandleTypeDef huart1;	
 	char incoming_letter;
 	bool stop_dump = true;
 	bool new_char;
@@ -96,6 +97,34 @@ void print_arr(uint8_t *data_array, int size)
 	
 }
 
+	
+void uart_send_xbee_message(uint8_t *v, uint16_t length)
+{
+	
+	HAL_UART_Transmit(&huart1,(uint8_t *)v, length, 1000);
+	
+}
+/*
+Function: print_str
+		   used to send multiple chars.
+			print on byte at time.
+Parameters:
+	char * message = pointer to the char array location 
+Returns:
+	N/A
+
+*/
+void send_int(uint8_t *data_array, int size)
+	{
+		int i=0;
+		//uint16_t messagelength = strlen(message);
+		for ( i=0; i< size; i++)
+		{ 
+			uart_send_int(*data_array);
+			data_array++;
+		}
+		
+}
 
 
 
