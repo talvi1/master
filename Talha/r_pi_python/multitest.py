@@ -75,8 +75,8 @@ count = 0
 serial0 = serial.Serial('/dev/ttyUSB0', baudrate=115200, bytesize=8, parity='N', stopbits=1)
 
 thread1 = threading.Thread(target=serial_read, args=(serial0,),).start()
-thread2 = threading.Thread(target=GPS_collect, args=(gps,),).start()
-thread3 = RepeatEvery(1, camera_capture).start()
+#thread2 = threading.Thread(target=GPS_collect, args=(gps,),).start()
+#thread3 = RepeatEvery(1, camera_capture).start()
 
 while True:
     line = queue.get(True, 10)
