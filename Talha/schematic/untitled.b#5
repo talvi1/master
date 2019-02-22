@@ -3,10 +3,10 @@
 <eagle version="9.0.0">
 <drawing>
 <settings>
-<setting alwaysvectorfont="no"/>
+<setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="1" unitdist="mm" unit="mm" style="dots" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
+<grid distance="1" unitdist="mil" unit="mil" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="no" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -191,10 +191,10 @@
 <wire x1="0" y1="0" x2="0" y2="51" width="0.1524" layer="20"/>
 <dimension x1="0" y1="0" x2="70" y2="0" x3="35" y3="-4" textsize="1.778" layer="47" precision="4"/>
 <dimension x1="70" y1="0" x2="70" y2="51" x3="80" y3="25.5" textsize="1.778" layer="47" precision="4"/>
-<hole x="2.6604" y="3.0414" drill="1"/>
-<hole x="66.984" y="2.762" drill="1"/>
-<hole x="67.5682" y="48.4666" drill="1"/>
-<hole x="2.635" y="48.238" drill="0.5"/>
+<hole x="2" y="2" drill="1"/>
+<hole x="68" y="2" drill="1"/>
+<hole x="68" y="49" drill="1"/>
+<hole x="2" y="49" drill="1"/>
 </plain>
 <libraries>
 <library name="SparkFun-Connectors" urn="urn:adsk.eagle:library:513">
@@ -774,9 +774,9 @@ design rules under a new name.</description>
 </pass>
 </autorouter>
 <elements>
-<element name="J1" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="2X20_SHROUDED" package3d_urn="urn:adsk.eagle:package:38279/1" value="RASPBERRYPI-40-PIN-GPIO_PTH" x="34.798" y="43.942" rot="R270">
-<attribute name="PROD_ID" value="CONN-12263" x="34.798" y="43.942" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="SF_ID" value="PRT-13054" x="34.798" y="43.942" size="1.778" layer="27" rot="R270" display="off"/>
+<element name="J1" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="2X20_SHROUDED" package3d_urn="urn:adsk.eagle:package:38279/1" value="RASPBERRYPI-40-PIN-GPIO_PTH" x="34.798" y="43.942" rot="MR90">
+<attribute name="PROD_ID" value="CONN-12263" x="34.798" y="43.942" size="1.778" layer="28" rot="MR90" display="off"/>
+<attribute name="SF_ID" value="PRT-13054" x="34.798" y="43.942" size="1.778" layer="28" rot="MR90" display="off"/>
 </element>
 <element name="J2" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="1X09_NO_SILK" package3d_urn="urn:adsk.eagle:package:38156/1" value="" x="28.956" y="35.56" rot="R180"/>
 <element name="U$1" library="adafruit" library_urn="urn:adsk.eagle:library:420" package="XBEE" package3d_urn="urn:adsk.eagle:package:6240840/1" value="XBEE" x="50.038" y="23.368" rot="R90"/>
@@ -807,7 +807,7 @@ design rules under a new name.</description>
 <signal name="5V">
 <contactref element="J1" pad="4"/>
 <contactref element="J1" pad="2"/>
-<wire x1="58.928" y1="42.672" x2="56.388" y2="42.672" width="0.508" layer="16"/>
+<wire x1="58.928" y1="45.212" x2="56.388" y2="45.212" width="0.508" layer="1"/>
 </signal>
 <signal name="TX">
 <contactref element="J3" pad="2"/>
@@ -830,48 +830,26 @@ design rules under a new name.</description>
 <signal name="VCC">
 <contactref element="U$1" pad="1"/>
 <contactref element="J1" pad="17"/>
-<wire x1="44.538" y1="12.368" x2="44.5516" y2="22.0218" width="0.508" layer="16"/>
-<wire x1="44.5516" y1="22.0218" x2="49.7332" y2="27.2542" width="0.508" layer="16"/>
-<wire x1="49.7332" y1="27.2542" x2="61.6204" y2="27.2542" width="0.508" layer="16"/>
-<wire x1="61.6204" y1="27.2542" x2="66.1416" y2="31.7754" width="0.508" layer="16"/>
-<wire x1="66.1416" y1="31.7754" x2="66.167" y2="46.0248" width="0.508" layer="16"/>
-<wire x1="62.3602" y1="49.0188" x2="42.3672" y2="49.0188" width="0.508" layer="16"/>
-<wire x1="66.167" y1="46.0248" x2="62.3602" y2="49.0188" width="0.508" layer="16"/>
-<wire x1="42.3672" y1="49.0188" x2="38.608" y2="45.212" width="0.508" layer="16"/>
+<wire x1="44.538" y1="12.368" x2="38.608" y2="42.672" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$1">
 <contactref element="J1" pad="1"/>
 <contactref element="J2" pad="1"/>
-<wire x1="28.956" y1="35.56" x2="38.2524" y2="35.56" width="0.508" layer="16"/>
-<wire x1="38.2524" y1="35.56" x2="40.3098" y2="37.6174" width="0.508" layer="16"/>
-<wire x1="40.3098" y1="37.6174" x2="58.5724" y2="37.592" width="0.508" layer="16"/>
-<wire x1="58.5724" y1="37.592" x2="62.357" y2="41.0464" width="0.508" layer="16"/>
-<wire x1="62.357" y1="41.0464" x2="62.3316" y2="43.3324" width="0.508" layer="16"/>
-<wire x1="62.3316" y1="43.3324" x2="58.928" y2="45.212" width="0.508" layer="16"/>
+<wire x1="9.9568" y1="42.672" x2="58.928" y2="42.672" width="0.508" layer="1"/>
+<wire x1="9.9568" y1="42.672" x2="28.956" y2="35.56" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$4">
 <contactref element="J1" pad="8"/>
 <contactref element="J2" pad="6"/>
 <wire x1="16.256" y1="35.56" x2="16.3068" y2="35.6108" width="0.254" layer="16"/>
-<wire x1="16.3068" y1="35.6108" x2="17.0209875" y2="35.6108" width="0.254" layer="16"/>
-<wire x1="20.0152" y1="36.2204" x2="22.2758" y2="38.481" width="0.254" layer="16"/>
-<wire x1="17.0209875" y1="35.6108" x2="17.0717875" y2="35.56" width="0.254" layer="16"/>
-<wire x1="22.2758" y1="38.481" x2="46.5836" y2="38.5318" width="0.254" layer="16"/>
-<wire x1="46.5836" y1="38.5318" x2="48.3362" y2="38.5064" width="0.254" layer="16"/>
-<wire x1="48.3362" y1="38.5064" x2="51.308" y2="42.672" width="0.254" layer="16"/>
-<wire x1="18.2909875" y1="34.3408" x2="19.3010125" y2="34.3408" width="0.254" layer="16"/>
-<wire x1="19.3010125" y1="34.3408" x2="20.0152" y2="35.0549875" width="0.254" layer="16"/>
-<wire x1="16.256" y1="35.56" x2="17.0717875" y2="35.56" width="0.254" layer="16"/>
-<wire x1="17.0717875" y1="35.56" x2="18.2909875" y2="34.3408" width="0.254" layer="16"/>
-<wire x1="20.0152" y1="35.0549875" x2="20.0152" y2="36.2204" width="0.254" layer="16"/>
+<wire x1="18.288" y1="45.085" x2="51.308" y2="45.212" width="0.254" layer="1"/>
+<wire x1="16.3068" y1="35.6108" x2="18.288" y2="45.085" width="0" layer="19" extent="16-16"/>
 </signal>
 <signal name="N$3">
 <contactref element="J1" pad="10"/>
 <contactref element="J2" pad="5"/>
-<wire x1="18.796" y1="35.56" x2="18.7706" y2="38.3794" width="0.254" layer="16"/>
-<wire x1="18.7706" y1="38.3794" x2="21.1328" y2="40.7416" width="0.254" layer="16"/>
-<wire x1="21.1328" y1="40.7416" x2="47.5996" y2="40.7416" width="0.254" layer="16"/>
-<wire x1="47.5996" y1="40.7416" x2="48.768" y2="42.672" width="0.254" layer="16"/>
+<wire x1="20.8026" y1="45.212" x2="48.768" y2="45.212" width="0.254" layer="1"/>
+<wire x1="18.796" y1="35.56" x2="48.768" y2="45.212" width="0" layer="19" extent="1-1"/>
 </signal>
 </signals>
 </board>

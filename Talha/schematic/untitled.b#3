@@ -6,9 +6,9 @@
 <setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="1" unitdist="mil" unit="mil" style="dots" multiple="1" display="yes" altdistance="0.005" altunitdist="inch" altunit="inch"/>
+<grid distance="0.05" unitdist="inch" unit="mm" style="dots" multiple="1" display="yes" altdistance="0.005" altunitdist="inch" altunit="inch"/>
 <layers>
-<layer number="1" name="Top" color="4" fill="1" visible="no" active="yes"/>
+<layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
 <layer number="3" name="Route3" color="4" fill="3" visible="no" active="no"/>
 <layer number="4" name="Route4" color="1" fill="4" visible="no" active="no"/>
@@ -54,7 +54,7 @@
 <layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
 <layer number="45" name="Holes" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="46" name="Milling" color="3" fill="1" visible="no" active="yes"/>
-<layer number="47" name="Measures" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="47" name="Measures" color="7" fill="1" visible="no" active="yes"/>
 <layer number="48" name="Document" color="7" fill="1" visible="no" active="yes"/>
 <layer number="49" name="Reference" color="7" fill="1" visible="no" active="yes"/>
 <layer number="50" name="dxf" color="7" fill="1" visible="no" active="no"/>
@@ -183,18 +183,14 @@
 <text x="50.8508" y="3.9116" size="1.27" layer="21" ratio="15" rot="R270">3.3V</text>
 <text x="55.88" y="3.81" size="1.27" layer="21" ratio="15" rot="R270">TX</text>
 <text x="58.42" y="3.81" size="1.27" layer="21" ratio="15" rot="R270">RX</text>
-<text x="68.1228" y="6.7056" size="1.397" layer="21" rot="R90">UoR Road Roughness Measurement System</text>
+<text x="67.9958" y="4.8006" size="1.5" layer="21" rot="R90">UoR Road Roughness Measurement System</text>
 <text x="53.34" y="4.064" size="1.27" layer="21" ratio="15" rot="R270">GND</text>
 <wire x1="0" y1="0" x2="70" y2="0" width="0.1524" layer="20"/>
 <wire x1="70" y1="0" x2="70" y2="51" width="0.1524" layer="20"/>
 <wire x1="70" y1="51" x2="0" y2="51" width="0.1524" layer="20"/>
 <wire x1="0" y1="0" x2="0" y2="51" width="0.1524" layer="20"/>
+<dimension x1="0" y1="0" x2="70" y2="0" x3="35" y3="-4" textsize="1.778" layer="47" precision="4"/>
 <dimension x1="70" y1="0" x2="70" y2="51" x3="80" y3="25.5" textsize="1.778" layer="47" precision="4"/>
-<dimension x1="67.31" y1="48.26" x2="67.31" y2="2.54" x3="74.93" y3="25.4" textsize="1.778" layer="47"/>
-<dimension x1="2.54" y1="2.54" x2="67.31" y2="2.54" x3="34.925" y3="-7.62" textsize="1.778" layer="47"/>
-<dimension x1="0" y1="0" x2="70" y2="0" x3="35" y3="-12.7" textsize="1.778" layer="47"/>
-<text x="59.944" y="46.228" size="1.27" layer="21" ratio="15">3.3V</text>
-<text x="59.944" y="41.148" size="1.27" layer="21" ratio="15">5V</text>
 </plain>
 <libraries>
 <library name="SparkFun-Connectors" urn="urn:adsk.eagle:library:513">
@@ -829,12 +825,12 @@ design rules under a new name.</description>
 <contactref element="U$1" pad="1"/>
 <contactref element="J1" pad="17"/>
 <wire x1="44.538" y1="12.368" x2="42.936" y2="13.97" width="0.508" layer="16"/>
-<wire x1="3.81" y1="16.51" x2="6.35" y2="13.97" width="0.508" layer="16"/>
+<wire x1="6.35" y1="13.97" x2="3.81" y2="16.51" width="0.508" layer="16"/>
+<wire x1="3.81" y1="16.51" x2="3.81" y2="45.72" width="0.508" layer="16"/>
 <wire x1="42.936" y1="13.97" x2="6.35" y2="13.97" width="0.508" layer="16"/>
-<wire x1="7.62" y1="48.26" x2="35.56" y2="48.26" width="0.508" layer="16"/>
+<wire x1="6.35" y1="48.26" x2="35.56" y2="48.26" width="0.508" layer="16"/>
 <wire x1="35.56" y1="48.26" x2="38.608" y2="45.212" width="0.508" layer="16"/>
-<wire x1="3.81" y1="16.51" x2="3.81" y2="44.45" width="0.508" layer="16"/>
-<wire x1="3.81" y1="44.45" x2="7.62" y2="48.26" width="0.508" layer="16"/>
+<wire x1="3.81" y1="45.72" x2="6.35" y2="48.26" width="0.508" layer="16"/>
 </signal>
 <signal name="N$1">
 <contactref element="J1" pad="1"/>
@@ -850,16 +846,20 @@ design rules under a new name.</description>
 <signal name="N$4">
 <contactref element="J1" pad="8"/>
 <contactref element="J2" pad="6"/>
+<wire x1="16.256" y1="35.56" x2="16.3068" y2="35.6108" width="0.254" layer="16"/>
+<wire x1="16.3068" y1="35.6108" x2="17.0209875" y2="35.6108" width="0.254" layer="16"/>
+<wire x1="17.0209875" y1="35.6108" x2="17.0717875" y2="35.56" width="0.254" layer="16"/>
+<wire x1="16.256" y1="35.56" x2="17.0717875" y2="35.56" width="0.254" layer="16"/>
+<wire x1="18.2909875" y1="34.3408" x2="19.3010125" y2="34.3408" width="0.254" layer="16"/>
 <wire x1="20.1168" y1="36.0650125" x2="20.8309875" y2="36.7792" width="0.254" layer="16"/>
+<wire x1="17.0717875" y1="35.56" x2="18.2909875" y2="34.3408" width="0.254" layer="16"/>
 <wire x1="38.0492" y1="36.7792" x2="38.1" y2="36.83" width="0.254" layer="16"/>
+<wire x1="19.3010125" y1="34.3408" x2="20.1168" y2="35.1565875" width="0.254" layer="16"/>
+<wire x1="20.1168" y1="35.1565875" x2="20.1168" y2="36.0650125" width="0.254" layer="16"/>
 <wire x1="20.8309875" y1="36.7792" x2="38.0492" y2="36.7792" width="0.254" layer="16"/>
 <wire x1="38.1" y1="36.83" x2="48.26" y2="36.83" width="0.254" layer="16"/>
 <wire x1="48.26" y1="36.83" x2="51.308" y2="39.878" width="0.254" layer="16"/>
 <wire x1="51.308" y1="39.878" x2="51.308" y2="42.672" width="0.254" layer="16"/>
-<wire x1="19.7231" y1="33.7185" x2="20.1168" y2="34.1122" width="0.254" layer="16"/>
-<wire x1="20.1168" y1="34.1122" x2="20.1168" y2="36.0650125" width="0.254" layer="16"/>
-<wire x1="16.256" y1="35.56" x2="18.0975" y2="33.7185" width="0.254" layer="16"/>
-<wire x1="18.0975" y1="33.7185" x2="19.7231" y2="33.7185" width="0.254" layer="16"/>
 </signal>
 <signal name="N$3">
 <contactref element="J1" pad="10"/>
