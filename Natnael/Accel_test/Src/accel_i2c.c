@@ -129,6 +129,17 @@ void read_register(I2C_HandleTypeDef* I2C, uint8_t reg, char *name, int length)
 	
 	
 }
+
+//Accelerometer Calibration 
+
+//A - ZA_OFFSET_H = 0x05
+//  - ZA_OFFSET_L_TC = 0x99
+
+//B - ZA_OFFSET_H = 0x05
+//  - ZA_OFFSET_L_TC = 0xCB
+
+//C - ZA_OFFSET_H = 0x07
+//  - ZA_OFFSET_L_TC = 0x5B
 void calibration(I2C_HandleTypeDef* I2C)
 {
 	char mesg[25];
@@ -137,13 +148,13 @@ void calibration(I2C_HandleTypeDef* I2C)
 	
 	uint8_t reg[2];
 	reg[0] = ZA_OFFSET_H;
-	reg[1] = 0x02;
+	reg[1] = 0x05;
 	if(HAL_I2C_Master_Transmit(handle, address, reg, 2, 1000) != HAL_OK)
 	{
 		print_str("Error setting ZA_OFFSET_H") ;
 	}
 	reg[0] = ZA_OFFSET_L_TC;
-	reg[1] = 0x4E;
+	reg[1] = 0xCB;
 	if(HAL_I2C_Master_Transmit(handle, address, reg, 2, 1000) != HAL_OK)
 	{
 		print_str("Error setting ZA_OFFSET_L_TC") ;

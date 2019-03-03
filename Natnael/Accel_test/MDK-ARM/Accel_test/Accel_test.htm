@@ -3,7 +3,7 @@
 <title>Static Call Graph - [Accel_test\Accel_test.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image Accel_test\Accel_test.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue Feb 19 17:15:44 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sat Mar 02 15:06:13 2019
 <BR><P>
 <H3>Maximum Stack Usage =        280 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -655,8 +655,8 @@ Global Symbols
 
 <P><STRONG><a name="[91]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
 
-<P><STRONG><a name="[78]"></a>calibration</STRONG> (Thumb, 254 bytes, Stack size 32 bytes, accel_i2c.o(i.calibration))
-<BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = calibration &rArr; HAL_I2C_Master_Transmit &rArr; I2C_MasterRequestWrite &rArr; I2C_WaitOnMasterAddressFlagUntilTimeout
+<P><STRONG><a name="[78]"></a>calibration</STRONG> (Thumb, 252 bytes, Stack size 24 bytes, accel_i2c.o(i.calibration))
+<BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = calibration &rArr; HAL_I2C_Master_Transmit &rArr; I2C_MasterRequestWrite &rArr; I2C_WaitOnMasterAddressFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_I2C_Master_Transmit
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_str

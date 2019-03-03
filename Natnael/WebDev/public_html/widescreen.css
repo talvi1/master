@@ -1,0 +1,64 @@
+ #mainMap { position:absolute !important; top:10%!important; bottom:0!important; width:58%!important; height:90% !important; }
+
+
+.grid-container { height: 100%; margin: 0; }
+.grid-container {
+    padding-top: 3%;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    grid-template-rows: 60% 40%;
+    grid-template-areas: "map image" "graph graph";
+  }
+  
+  .map { 
+      grid-area: map; 
+     
+      margin: 0.5%;
+   }
+  #maper{
+    height: 100%;
+  }
+  .image { 
+      grid-area: image; 
+     
+      margin: 0.5%;
+   }
+  body{
+    background-color:blue;
+  }
+  .graph { 
+      grid-area: graph; 
+ 
+      margin: 0.5%;
+   }
+  
+  
+  @media all and (-ms-high-contrast:none) {
+    .grid-container {
+      display: -ms-grid;
+      -ms-grid-columns: 60% 40%;
+      -ms-grid-rows: 60% 40%;
+    }
+  
+    .map {
+      -ms-grid-row: 1;
+      -ms-grid-row-span: 1;
+      -ms-grid-col: 1;
+      -ms-grid-col-span: 1;
+    }
+  
+    .image {
+      -ms-grid-row: 1;
+      -ms-grid-row-span: 1;
+      -ms-grid-col: 2;
+      -ms-grid-col-span: 1;
+    }
+  
+    .graph {
+      -ms-grid-row: 2;
+      -ms-grid-row-span: 1;
+      -ms-grid-col: 1;
+      -ms-grid-col-span: 2;
+    }
+  
+  }

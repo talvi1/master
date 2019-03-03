@@ -72,20 +72,21 @@ uint8_t getAccel(I2C_HandleTypeDef* I2C)
 	accel_z = (int16_t)(data[4] << 8 | data[5]);
 	
 	
-	uart_send_int(data[4]);
-	uart_send_int(data[5]);
+	//uart_send_int(data[4]);
+	//uart_send_int(data[5]);
 	
 	
-//float z = accel_z/8192.0;
+float z = accel_z/2048.0;
 //float z1 = 2.596;
 //	uart_send_message(data[0]);
 //	uart_send_message(data[1]);
 //	print_str("\n\r");
-//char c[25];
-//sprintf(c, "%u", accel_z);
+char c[25];
+	//sprintf(c, "%u", accel_z);
+sprintf(c, "%f", z);
 //print_str("{TIMEPLOT|DATA|My Sensor|T|");
 //print_str(c);print_str("}");
-//print_str(c);
+print_str(c);
 	
 	
 	print_str("\n\r");
@@ -120,6 +121,15 @@ void read_register(I2C_HandleTypeDef* I2C, uint8_t reg, char *name, int length)
 	
 	
 }
+
+//Accelerometer Calibration 
+
+//A - ZA_OFFSET_H = 0x05
+//  - ZA_OFFSET_L_TC = 0x99
+
+//B - ZA_OFFSET_H = 0x05
+//  - ZA_OFFSET_L_TC = 0xCB
+
 void calibration(I2C_HandleTypeDef* I2C)
 {
 	char mesg[25];
@@ -128,16 +138,50 @@ void calibration(I2C_HandleTypeDef* I2C)
 	
 	uint8_t reg[2];
 	reg[0] = ZA_OFFSET_H;
-	reg[1] = 0x02;
+	reg[1] = 0x07;
 	if(HAL_I2C_Master_Transmit(handle, address, reg, 2, 1000) != HAL_OK)
 	{
 		print_str("Error setting ZA_OFFSET_H") ;
 	}
 	reg[0] = ZA_OFFSET_L_TC;
-	reg[1] = 0x4E;
+	reg[1] = 0x5B;
 	if(HAL_I2C_Master_Transmit(handle, address, reg, 2, 1000) != HAL_OK)
 	{
 		print_str("Error setting ZA_OFFSET_L_TC") ;
+	}
+	reg[0] = SMPLRT_DIV;
+	reg[1] = 0x09;
+	if(HAL_I2C_Master_Transmit(handle, address, reg, 2, 1000) != HAL_OK)
+	{
+		print_str("Error setting SMPLRT_DIV") ;
+	}
+	//Set LSB sensitivity to +/- 8g
+	reg[0] = ACCEL_CONFIG;
+	reg[1] = 0x18;
+	if(HAL_I2C_Master_Transmit(handle, address, reg, 2, 1000) != HAL_OK)
+	{
+		print_str("Error setting ACCEL_CONFIG") ;
+	}
+	//Set digital low pass filter bandwidth to 94 Hz
+	reg[0] = CONFIG;
+	reg[1] = 0x02;
+	if(HAL_I2C_Master_Transmit(handle, address, reg, 2, 1000) != HAL_OK)
+	{
+		print_str("Error setting CONFIG") ;
+	}
+	//Interrupt configured for active high and clears on read operation of data registers
+	reg[0] = INT_PIN_CFG;
+	reg[1] = 0x30;
+	if(HAL_I2C_Master_Transmit(handle, address, reg, 2, 1000) != HAL_OK)
+	{
+		print_str("Error setting INT_PIN_CFG");
+	}
+	//Enable interrupt on data ready to read in sensor data registers
+	reg[0] = INT_ENABLE;
+	reg[1] = 0x01;
+	if(HAL_I2C_Master_Transmit(handle, address, reg, 2, 1000) != HAL_OK)
+	{
+		print_str("Error setting INT_ENABLE");
 	}
 	
 }
