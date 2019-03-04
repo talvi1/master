@@ -22,10 +22,10 @@ while True:
   if current - timestamp >= 1.0:
       timestamp = current
       if not gps.has_fix:
-             print ('Waiting for fix...')
-    #         continue
+        print ('Waiting for fix...')
+        #continue
       print('=' * 40)  # Print a separator line.
-      x = 'Fix timestamp: {}/{}/{} {:02}:{:02}:{:02}'.format(
+      """x = 'Fix timestamp: {}/{}/{} {:02}:{:02}:{:02}'.format(
       gps.timestamp_utc.tm_mon,   # Grab parts of the time from the
       gps.timestamp_utc.tm_mday,  # struct_time object that holds
       gps.timestamp_utc.tm_year,  # the fix time.  Note you might
@@ -37,10 +37,10 @@ while True:
       print('Longitude: {0:.6f} degrees'.format(gps.longitude))
       print('Fix quality: {}'.format(gps.fix_quality))
         # Some attributes beyond latitude, longitude and timestamp are optional
-        # and might not be present.  Check if they're None before trying to use!
+        # and might not be present.  Check if they're None before trying to use!"""
       if gps.satellites is not None:
           print('# satellites: {}'.format(gps.satellites))
-      if gps.altitude_m is not None:
+     """ if gps.altitude_m is not None:
           print('Altitude: {} meters'.format(gps.altitude_m))
       if gps.track_angle_deg is not None:
           print('Speed: {} knots'.format(gps.speed_knots))
@@ -49,5 +49,5 @@ while True:
       if gps.horizontal_dilution is not None:
           print('Horizontal dilution: {}'.format(gps.horizontal_dilution))
       if gps.height_geoid is not None:
-          print('Height geo ID: {} meters'.format(gps.height_geoid))      
+          print('Height geo ID: {} meters'.format(gps.height_geoid))      """
             

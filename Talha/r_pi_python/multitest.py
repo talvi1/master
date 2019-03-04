@@ -31,27 +31,6 @@ def GPS_collect(gps):
         gps.timestamp_utc.tm_min,   # month!
         gps.timestamp_utc.tm_sec)
         queue.put(x)
-    
-class RepeatEvery(threading.Thread):
-    def __init__(self, interval, func, *args, **kwargs):
-        threading.Thread.__init__(self)
-        self.interval = interval 
-        self.func = func       
-        self.args = args         
-        self.kwargs = kwargs     
-        self.runable = True
-    def run(self):
-        while self.runable:
-            self.func(*self.args, **self.kwargs)
-            sleep(self.interval)
-    def stop(self):
-        self.runable = False
-
-def camera_capture():
-    global count
-    count = count + 1
-    camera.capture('image{0:04d}.jpg'.format(count))
-    
 
 #Queue setup
 queue = queue.Queue(1000)
@@ -64,19 +43,12 @@ gps.send_command(b'PMTK220,1000')
 timestamp = time.monotonic()
 
 # Camera initialization
-camera = PiCamera()
-camera.rotation = 180
-camera.resolution = (1920, 1080)
-camera.framerate = 5
-camera.brightness = 50
 
-count = 0
 
 serial0 = serial.Serial('/dev/ttyUSB0', baudrate=115200, bytesize=8, parity='N', stopbits=1)
 
-thread1 = threading.Thread(target=serial_read, args=(serial0,),).start()
-#thread2 = threading.Thread(target=GPS_collect, args=(gps,),).start()
-#thread3 = RepeatEvery(1, camera_capture).start()
+#thread1 = threading.Thread(target=serial_read, args=(serial0,),).start()
+thread2 = threading.Thread(target=GPS_collect, args=(gps,),).start()
 
 while True:
     line = queue.get(True, 10)
