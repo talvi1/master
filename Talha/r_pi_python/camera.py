@@ -5,7 +5,7 @@ import threading
 from datetime import datetime
 
 camera = PiCamera()
-camera.rotation = 180
+camera.rotation = 0
 camera.resolution = (1920, 1080)
 camera.framerate = 5
 camera.brightness = 50
