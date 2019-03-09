@@ -16,7 +16,7 @@ def serial_read(s):
 			line = s.read(109)
 			print(line.hex())
 			queue.put('Xbee'+line.hex())
-		
+
 def gps_read(gps):
 	timestamp = time.monotonic()
 	while True:
@@ -38,15 +38,15 @@ def gps_read(gps):
 		sat = gps.satellites
 		speed = gps.speed_knots
 		latitude = gps.latitude
-		longitude = gps.longitude 
+		longitude = gps.longitude
 		queue.put(x)
 		queue.put(sat)
 		queue.put(speed)
 		queue.put(latitude)
 		queue.put(longitude)
 		time.sleep(0.5)
-		
-		
+
+
 
 uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=3000)
 

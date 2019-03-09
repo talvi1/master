@@ -28,7 +28,7 @@ def twos_complement(value):
         value = -1*((~value & 0xFFFF) + 1)
     return value
 
-with open("test1.csv", mode='r') as csvfile:
+with open("test_2_16.csv", mode='r') as csvfile:
     my_list = []
     reader = csv.reader(csvfile)
     for row in reader:
@@ -38,7 +38,7 @@ lists = [my_list[x][0] for x in range(0, len(my_list))]
 #list = [splitCount(lists[x]) for x in range(len(lists))]
 f = 0
 t = 0
-with open("data_processed_04_march.csv", mode='a', buffering=1) as csvfile2:
+with open("data_processed_09_march.csv", mode='a', buffering=1) as csvfile2:
     csvwrite = csv.writer(csvfile2, delimiter='|')
     csvwrite.writerow(['GPS_Coordinates'] + ['Accel_Z_Device0'] + ['Accel_Z_Device1'] + ['Accel_Z_Device2'] + ['Image_Index'])
     count = 0
@@ -81,9 +81,9 @@ with open("data_processed_04_march.csv", mode='a', buffering=1) as csvfile2:
                     for j in range(0, 50):
                         if (len(multi_list[i]) < 50):
                             multi_list[i].append(0)
-
-                        else :
-                            csvwrite.writerow(['         '] + [multi_list[0][j]] + [multi_list[1][j]] + [multi_list[2][j]] + [''])
+                for i in range(len(multi_list)):
+                    for j in range(0, 50):
+                        csvwrite.writerow(['         '] + [multi_list[0][j]] + [multi_list[1][j]] + [multi_list[2][j]] + [''])
         elif (ident == 'GPS1'):
             print(lists[x])
             csvwrite.writerow([lists[x]] + [''] + [''] + [''] + [''])

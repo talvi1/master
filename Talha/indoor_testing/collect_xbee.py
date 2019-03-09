@@ -27,7 +27,7 @@ serial0.write(serial.to_bytes(send_1))
 thread1 = threading.Thread(target=serial_read, args=(serial0,),).start()
 #thread2 = threading.Thread(target=gps_read).start()
 
-with open("test1.csv", mode='w', buffering=1) as csvfile:
+with open("test_2_16.csv", mode='w', buffering=1) as csvfile:
 	while True:
 		line = queue.get()
 		#print(line)
