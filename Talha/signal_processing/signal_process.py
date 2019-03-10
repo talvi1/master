@@ -9,10 +9,18 @@ def dc_blocker(accel):
     for x in range(1, len(accel)):
         out[x] = accel[x] - accel[x-1] + 0.9995*out[x-1]
     return out
-def moving_average(accel):
-    out = np.zeros(shape=(len(accel),1))
-    for x in range(5 , len(accel)):
-        out[x] = 0.2*accel[x] + 0.2*accel[x-1] + 0.2*accel[x-2] + 0.2*accel[x-3] + 0.2*accel[x-4]
+
+def moving_average(accel, N):
+    size = len(accel)
+    p = int((N-1)/2)
+    q = int(p + 1)
+    out = np.zeros(shape=(size,1))
+    sum = 0
+    for x in range(0, N-1):
+        sum = sum + accel[x]
+    out[p] = sum/N
+    for x in range(q , len(accel)):
+        out[x] = out[x-1] + (1/N)*(accel[x] - accel[x-N])
     return out
 
 def plot_fft(data, fig):
@@ -51,9 +59,14 @@ Accel_Z_Device1 = df['Accel_Z_Device1']
 Accel_Z_Device2 = df['Accel_Z_Device2']
 print(np.mean(Accel_Z_Device0))
 accel_z_0 = dc_blocker(Accel_Z_Device0)
-mov_avg_accel = moving_average(accel_z_0)
+mov_avg_accel = moving_average(accel_z_0, 15)
 
+
+print(mov_avg_accel)
+plt.figure(1)
 plt.plot(mov_avg_accel)
+plt.figure(2)
+plt.plot(accel_z_0)
 # plot_fft(accel_z_0, 1)
 # plot_fft(Accel_Z_Device0, 2)
 #plot_mag_response()
