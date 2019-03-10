@@ -16,7 +16,7 @@ def serial_read(s):
 	while True:
 		e = s.read()
 		if (e.hex() == '7e'):
-			line = s.read(109)
+			line = s.read(108)
 			queue.put('Xbee'+line.hex())
 		
 def gps_read(gps):
@@ -25,16 +25,15 @@ def gps_read(gps):
 		if (gps.update()):
 			fix = gps.fix_quality
 			speed = gps.speed_knots
-			print(fix)
 			#while fix == 0 or fix == None or speed == None:
 				#print ('Waiting for fix...')
 				#fix = gps.fix_quality
 				#speed = gps.speed_knots
 				#time.sleep(1)
 				#continue
-			#speed = gps.speed_knots
+			speed = gps.speed_knots
 			#speed_km = 1.852*speed
-			#speed_queue.put(speed_km)
+			speed_queue.put(0)
 			latitude = gps.latitude
 			longitude = gps.longitude
 			queue.put('GPS0'+str(50.45332))
@@ -45,11 +44,10 @@ def gps_read(gps):
 def capture_image():
 	while True:
 		speed = 0
-		print(speed)
 		if (speed < 5.0):
 			fileName = 'image_' + str(datetime.datetime.now().strftime("%d_%b_%Y_%H_%M_%S")) + '.jpg'
 			queue.put(fileName)
-			camera.capture(fileName)
+			camera.capture(fileName, use_video_port=True)
 		sleep(1)
 				
 
@@ -64,9 +62,10 @@ gps.send_command(b'PMTK220,500')
 timestamp = time.monotonic()
 
 camera = PiCamera()
-camera.rotation = 0
+camera.rotation = 180
 camera.resolution = (1920, 1080)
-camera.brightness = 40
+camera.framerate = 60
+camera.brightness = 55
 
 
 speed_queue = queue.Queue(0)
