@@ -8,6 +8,7 @@ import datetime
 from time import sleep
 import time
 
+
 millis = time.ctime()
 start_time = time.time()
 def serial_read(queue, speed_queue, s):
@@ -89,7 +90,7 @@ def finish_collection(status):
 	proc_xbee.join()
 	proc_camera.join()
 	
-	status.put("Processes Exited")
+	
 	
 	
 	

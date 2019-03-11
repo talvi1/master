@@ -20,15 +20,23 @@ start_time = time.time()
 while True:
     elapsed_time = time.time() - start_time
     if (not status.empty()):
-        print(status.get())
+        msg = status.get()
+        print(msg)
+        print(queue.qsize())
+        if msg == "Processes Exited":
+            quit()
+        
     #if (not queue.empty()):
      #   print(queue.get())
       #  print(elapsed_time)
         
    # print(elapsed_time)
     #sleep(0.1)
-    if (elapsed_time > 30.0 and elapsed_time < 30.005):
+    if (elapsed_time > 60.0 and elapsed_time < 60.005):
         data_collect.finish_collection(status)
+        proc_parse.terminate()
+        proc_parse.join()
+        status.put("Processes Exited")
 
 
         
