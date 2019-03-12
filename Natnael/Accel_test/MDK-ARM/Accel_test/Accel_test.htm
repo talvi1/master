@@ -3,9 +3,9 @@
 <title>Static Call Graph - [Accel_test\Accel_test.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image Accel_test\Accel_test.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sat Mar 02 15:06:13 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sun Mar 10 17:26:00 2019
 <BR><P>
-<H3>Maximum Stack Usage =        280 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        248 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 main &rArr; send_to_xbee &rArr; send_int &rArr; uart_send_int &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 <P>
@@ -255,7 +255,7 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memset
 </UL>
 
-<P><STRONG><a name="[7d]"></a>strlen</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, strlen.o(.text))
+<P><STRONG><a name="[7c]"></a>strlen</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, strlen.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_str
 </UL>
 
@@ -555,8 +555,8 @@ Global Symbols
 <LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 </UL>
 <BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_xbee_message
-<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_message
-<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_int
+<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_message
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_int
 </UL>
 
 <P><STRONG><a name="[64]"></a>HAL_UART_TxCpltCallback</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f1xx_hal_uart.o(i.HAL_UART_TxCpltCallback))
@@ -642,11 +642,10 @@ Global Symbols
 
 <P><STRONG><a name="[8e]"></a>__1sprintf$5</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf5.o(i.__0sprintf$5), UNUSED)
 
-<P><STRONG><a name="[7b]"></a>__2sprintf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf5.o(i.__0sprintf$5))
+<P><STRONG><a name="[80]"></a>__2sprintf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf5.o(i.__0sprintf$5))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_to_xbee
+<BR>[Called By]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_to_xbee
 </UL>
 
 <P><STRONG><a name="[8f]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
@@ -673,8 +672,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[33]"></a>main</STRONG> (Thumb, 210 bytes, Stack size 32 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 280<LI>Call Chain = main &rArr; send_to_xbee &rArr; send_int &rArr; uart_send_int &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
+<P><STRONG><a name="[33]"></a>main</STRONG> (Thumb, 184 bytes, Stack size 0 bytes, main.o(i.main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = main &rArr; send_to_xbee &rArr; send_int &rArr; uart_send_int &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Init
 <LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
@@ -682,54 +681,53 @@ Global Symbols
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_SPI1_Init
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_to_xbee
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_to_xbee
 <LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getAccel
 <LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calibration
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_Init
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_str
-<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
 <P><STRONG><a name="[79]"></a>print_str</STRONG> (Thumb, 30 bytes, Stack size 16 bytes, uart.o(i.print_str))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = print_str &rArr; uart_send_message &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_message
-<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<BR>[Calls]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_message
+<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
 <BR>[Called By]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_to_xbee
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_to_xbee
 <LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calibration
 </UL>
 
-<P><STRONG><a name="[7f]"></a>send_int</STRONG> (Thumb, 26 bytes, Stack size 16 bytes, uart.o(i.send_int))
+<P><STRONG><a name="[7e]"></a>send_int</STRONG> (Thumb, 26 bytes, Stack size 16 bytes, uart.o(i.send_int))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = send_int &rArr; uart_send_int &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_int
+<BR>[Calls]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_int
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_to_xbee
+<BR>[Called By]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_to_xbee
 </UL>
 
-<P><STRONG><a name="[7c]"></a>send_to_xbee</STRONG> (Thumb, 172 bytes, Stack size 168 bytes, accel_i2c.o(i.send_to_xbee))
+<P><STRONG><a name="[7b]"></a>send_to_xbee</STRONG> (Thumb, 172 bytes, Stack size 168 bytes, accel_i2c.o(i.send_to_xbee))
 <BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = send_to_xbee &rArr; send_int &rArr; uart_send_int &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_xbee_message
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_int
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_int
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_str
-<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[80]"></a>uart_send_int</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, uart.o(i.uart_send_int))
+<P><STRONG><a name="[7f]"></a>uart_send_int</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, uart.o(i.uart_send_int))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = uart_send_int &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_int
+<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_int
 </UL>
 
-<P><STRONG><a name="[7e]"></a>uart_send_message</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, uart.o(i.uart_send_message))
+<P><STRONG><a name="[7d]"></a>uart_send_message</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, uart.o(i.uart_send_message))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = uart_send_message &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit
@@ -742,7 +740,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_to_xbee
+<BR>[Called By]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_to_xbee
 </UL>
 <P>
 <H3>

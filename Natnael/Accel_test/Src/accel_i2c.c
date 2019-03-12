@@ -58,9 +58,9 @@ int16_t getAccel(I2C_HandleTypeDef* I2C)
 	uint8_t reg = 0x3B;
 	uint8_t address = 0xD0;
 	uint8_t data[6];
-	int16_t accel_x, accel_y, accel_z;
+	int16_t  accel_z;
 	
-	uint8_t xbeeData[2];
+//	uint8_t xbeeData[2];
 	if(HAL_I2C_Master_Transmit(handle, address, &reg, 1, 1000) != HAL_OK)
 	{
 		return 0x01;
@@ -69,8 +69,8 @@ int16_t getAccel(I2C_HandleTypeDef* I2C)
 	{
 		return 0x01;
 	}
-	accel_x = (int16_t)(data[0] << 8 | data[1]);
-	accel_y = (int16_t)(data[2] << 8 | data[3]);
+	//accel_x = (int16_t)(data[0] << 8 | data[1]);
+	//accel_y = (int16_t)(data[2] << 8 | data[3]);
 	accel_z = (int16_t)(data[4] << 8 | data[5]);
 	//*(accel_data+index) = data[4];
 	//*(accel_data+(index+1)) = data[5];
@@ -107,7 +107,7 @@ void read_register(I2C_HandleTypeDef* I2C, uint8_t reg, char *name, int length)
 	uint8_t address = 0xD0;
 	
 	char c[25];
-	char hex_tmp[33];
+//	char hex_tmp[33];
 
 	I2C_HandleTypeDef* handle = I2C;
 	if(HAL_I2C_Master_Transmit(handle, address, &reg, 1, 1000) != HAL_OK)
@@ -142,7 +142,7 @@ void read_register(I2C_HandleTypeDef* I2C, uint8_t reg, char *name, int length)
 //  - ZA_OFFSET_L_TC = 0x5B
 void calibration(I2C_HandleTypeDef* I2C)
 {
-	char mesg[25];
+//	char mesg[25];
 	uint8_t address = 0xD0;
 	I2C_HandleTypeDef* handle = I2C;
 	
@@ -160,7 +160,7 @@ void calibration(I2C_HandleTypeDef* I2C)
 		print_str("Error setting ZA_OFFSET_L_TC") ;
 	}
 	reg[0] = SMPLRT_DIV;
-	reg[1] = 0x09;
+	reg[1] = 0x04;
 	if(HAL_I2C_Master_Transmit(handle, address, reg, 2, 1000) != HAL_OK)
 	{
 		print_str("Error setting SMPLRT_DIV") ;
@@ -204,9 +204,9 @@ void send_to_xbee(uint8_t *accelerometer_data_to_send_to_xbee)
 	uint8_t init[1];
 	uint8_t final_array_to_send[109];
 	
-	uint8_t Delimiter = 0x7E;
-	uint8_t Length = 0x00;
-	uint8_t Length1 =0x00;
+//	uint8_t Delimiter = 0x7E;
+//	uint8_t Length = 0x00;
+//	uint8_t Length1 =0x00;
 	uint8_t API_identifier = 0x01;
 	uint8_t API_frame_ID = 0x01;
 	uint8_t Destination_address = 0x00;

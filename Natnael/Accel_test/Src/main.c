@@ -152,10 +152,10 @@ int main(void)
 				{
 					int_flag = false;
 					tempData = getAccel(&hi2c1);
-					char c[25];
-					sprintf(c, "%x", tempData);
-					print_str("\n\r");
-					print_str(c);
+					//char c[25];
+					//sprintf(c, "%x", tempData);
+					//print_str("\n\r");
+					//print_str(c);
 					accel_z_data[accel_index] = (tempData & 0xff00)>>8;
 					accel_z_data[accel_index+1] = tempData & 0xff;
 //					accel_index++; 
@@ -173,6 +173,11 @@ int main(void)
 				if(accel_index == 100)
 				{
 					  send_to_xbee(accel_z_data);
+						//read_register(&hi2c1, SMPLRT_DIV, "SMPLRT_DIV", 1);
+						//print_str("New Data");
+						//send_int(accel_z_data, sizeof(accel_z_data));
+						
+						//print_str("\n\r");
 						accel_index = 0;
 						
 				}

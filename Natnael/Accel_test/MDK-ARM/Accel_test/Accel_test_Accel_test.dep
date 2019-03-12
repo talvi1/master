@@ -26,11 +26,11 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x5C4238CE)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x5C4238CE)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h)(0x5C4238CE)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x5C4238CE)
-I (../Inc/uart.h)(0x5C6C7B93)
+I (../Inc/uart.h)(0x5C8586CF)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599F920C)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599F920E)
-F (..\Inc\uart.h)(0x5C6C7B93)()
-F (..\Src\accel_i2c.c)(0x5C7AF041)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_Accel_test-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DSTM32F10X_MD_VL -DUSE_HAL_DRIVER -DSTM32F100xB-o accel_test\accel_i2c.o --omf_browse accel_test\accel_i2c.crf --depend accel_test\accel_i2c.d)
+F (..\Inc\uart.h)(0x5C8586CF)()
+F (..\Src\accel_i2c.c)(0x5C859D05)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_Accel_test-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DSTM32F10X_MD_VL -DUSE_HAL_DRIVER -DSTM32F100xB-o accel_test\accel_i2c.o --omf_browse accel_test\accel_i2c.crf --depend accel_test\accel_i2c.d)
 I (../Inc/accel_i2c.h)(0x5C6C83CB)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x5C4238CE)
 I (../Inc/stm32f1xx_hal_conf.h)(0x5C4238CE)
@@ -58,10 +58,10 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x5C4238CE)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h)(0x5C4238CE)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x5C4238CE)
 I (../Inc/MPU6050.h)(0x5C44F4E6)
-I (../Inc/uart.h)(0x5C6C7B93)
+I (../Inc/uart.h)(0x5C8586CF)
 F (..\Inc\accel_i2c.h)(0x5C6C83CB)()
 F (..\Inc\MPU6050.h)(0x5C44F4E6)()
-F (../Src/main.c)(0x5C6C8818)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_Accel_test-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DSTM32F10X_MD_VL -DUSE_HAL_DRIVER -DSTM32F100xB-o accel_test\main.o --omf_browse accel_test\main.crf --depend accel_test\main.d)
+F (../Src/main.c)(0x5C859310)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_Accel_test-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="527" -D_RTE_ -DSTM32F10X_MD_VL -DUSE_HAL_DRIVER -DSTM32F100xB-o accel_test\main.o --omf_browse accel_test\main.crf --depend accel_test\main.d)
 I (../Inc/main.h)(0x5C4238CE)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x5C4238CE)
 I (../Inc/stm32f1xx_hal_conf.h)(0x5C4238CE)
@@ -89,7 +89,7 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x5C4238CE)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h)(0x5C4238CE)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x5C4238CE)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599F920C)
-I (../Inc/uart.h)(0x5C6C7B93)
+I (../Inc/uart.h)(0x5C8586CF)
 I (../Inc/accel_i2c.h)(0x5C6C83CB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599F920E)
 I (../Inc/MPU6050.h)(0x5C44F4E6)
