@@ -19,10 +19,27 @@ def moving_average(accel, N):
     for x in range(0, N-1):
         sum = sum + accel[x]
     out[p] = sum/N
-    for x in range(q , len(accel)):
+    for x in range(q , size):
         out[x] = out[x-1] + (1/N)*(accel[x] - accel[x-N])
     return out
-
+def simpsons_method(list):
+    d_t = 0.005
+    size = len(list)
+    np.append(list,[0,0,0])
+    print(list)
+    out = np.zeros(shape=(size,1))
+    for x in range(2, size):
+        out[x] = out[x-1] + ((list[x-2]+4*list[x-1]+list[x])*(d_t))/6
+    return out
+def trapezoidal_method(list):
+    fs = 200
+    size = len(list)
+    np.append(list,[0,0,0])
+    print(list)
+    out = np.zeros(shape=(size,1))
+    for x in range(1, size):
+        out[x] = out[x-1] + (list[x-1]+list[x])/(2*fs)
+    return out
 def plot_fft(data, fig):
     N = len(data)
     T = 1.0/100.0 #1/sample rate of device
@@ -59,7 +76,7 @@ Accel_Z_Device1 = df['Accel_Z_Device1']
 Accel_Z_Device2 = df['Accel_Z_Device2']
 print(np.mean(Accel_Z_Device0))
 accel_z_0 = dc_blocker(Accel_Z_Device0)
-mov_avg_accel = moving_average(accel_z_0, 15)
+mov_avg_accel = moving_average(accel_z_0, 85)
 
 
 print(mov_avg_accel)
@@ -67,6 +84,12 @@ plt.figure(1)
 plt.plot(mov_avg_accel)
 plt.figure(2)
 plt.plot(accel_z_0)
+plt.figure(3)
+int1 = simpsons_method(mov_avg_accel)
+int2 = simpsons_method(int1)
+plt.plot(int1)
+plt.figure(4)
+plt.plot(trapezoidal_method(mov_avg_accel))
 # plot_fft(accel_z_0, 1)
 # plot_fft(Accel_Z_Device0, 2)
 #plot_mag_response()
