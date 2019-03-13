@@ -50,36 +50,38 @@ def get_count_frames(list):
     return [device_0, device_1, device_2]                
         
 
-def extract_queue(queue, status):
+def extract_queue(queue, status, accel_0, accel_1, accel_2):
     start_time = time.time()
     while True:
         elapsed_time = time.time() - start_time
         list = []
         count = 0
         device_0 = 0
-        if (queue.qsize() == 52):
-            #print("Elapsed Time: " + str(elapsed_time))
-            for x in range(52):
+        if (queue.qsize() > 10):
+
+            for x in range(10):
                 list.append(queue.get()) 
             frames = get_count_frames(list)
             while frames[0] != frames[1] or frames[1] != frames[2] or frames[0] != frames[2]:
                 list.append(queue.get())
                 #print("Elapsed Time: " + str(elapsed_time))
                 frames = get_count_frames(list)
-                if (frames[0] >= 20):
+                if (frames[0] == 5 or frames[1] == 5 or frames[2] == 5):
                     break;
                 
             #print(frames)
-            print(queue.qsize())    
-            parse_data(list, frames)    
+            parse_data(list, frames, accel_0, accel_1, accel_2)
+            print(accel_0.qsize())
+            #print("Elapsed Time: " + str(elapsed_time))    
             
             
-def parse_data(list, frames):
+def parse_data(list, frames, accel_0, accel_1, accel_2):
     f = 0
     t = 0
     #print(list)
     count = 0
     frame_count = 0
+   # print(list)
     multi_list = [[] for i in range(3)]
     gps_list = [[] for i in range(2)]
     for x in range(len(list)):
@@ -117,17 +119,15 @@ def parse_data(list, frames):
                 for i in range(0, 2):
                     for j in range(0, 50):
                         if (len(multi_list[i]) < 50):
-                            multi_list[i].append(0)
+                            multi_list[i].append(9.83285)
         elif (ident == 'GPS0'):
             temp = list[x]
             s = temp[4:].split('|')
             gps_list[0].append(s[0])
             gps_list[1].append(s[1])
-    print("hello")
-    signal_process.process_signal(multi_list)
-    print("yo")
+    signal_process.process_signal(multi_list, accel_0, accel_1, accel_2)
     #for v in zip(*multi_list):
-     #   print(*v)
+     #  print(*v)
     #print(frame_count)
     #print(multi_list[0])
     #print(len(multi_list))

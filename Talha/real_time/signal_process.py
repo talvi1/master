@@ -24,7 +24,23 @@ def moving_average(accel, N):
     for x in range(q , len(accel)):
         out[x] = out[x-1] + (1/N)*(accel[x] - accel[x-N])
     return out
-
+def simpsons_method(list):
+    d_t = 0.005
+    size = len(list)
+    out = np.zeros(shape=(size,1))
+    for x in range(2, size):
+        out[x] = out[x-1] + ((list[x-2]+4*list[x-1]+list[x])*(d_t))/6
+    return out
+def trapezoidal_method(list):
+    fs = 200
+    size = len(list)
+    out = np.zeros(shape=(size,1))
+    for x in range(1, size):
+        out[x] = out[x-1] + (list[x-1]+list[x])/(2*fs)
+    return out
+def roughness_index(list):
+    return 0
+        
 def plot_fft(data, fig):
     N = len(data)
     T = 1.0/100.0 #1/sample rate of device
@@ -56,18 +72,40 @@ def plot_mag_response():
 def plot_figure(count):
     plt.figure(count)
     plt.show()
-def process_signal(accel_list):
+def process_signal(accel_list, accel_0, accel_1, accel_2):
     global counts
-    counts = counts + 1
-    dc_block_0 = dc_blocker(accel_list[0])
-    dc_block_1 = dc_blocker(accel_list[1])
-    dc_block_2 = dc_blocker(accel_list[2])
-    mov_avg_0 = moving_average(dc_block_0, 33)
-    mov_avg_1 = moving_average(dc_block_1, 33)
-    mov_avg_2 = moving_average(dc_block_2, 33)
-    plt.plot(dc_block_0)
-    proc_parse = Process(target=plot_figure, args=(counts,))
-    proc_parse.start()
+    
+    dc_block = [[] for i in range(3)]
+    mov_avg = [[] for i in range(3)]
+    integ = [[] for i in range(3)]
+    dc_block[0] = dc_blocker(accel_list[0])
+    dc_block[1]= dc_blocker(accel_list[1])
+    dc_block[2] = dc_blocker(accel_list[2])
+    mov_avg[0] = moving_average(dc_block[0], 5)
+    mov_avg[1] = moving_average(dc_block[1], 5)
+    mov_avg[2] = moving_average(dc_block[2], 5)
+    integ[0] = simpsons_method(mov_avg[0])
+    integ[1] = simpsons_method(mov_avg[1])
+    integ[2] = simpsons_method(mov_avg[2])
+    for x in range(len(mov_avg[0])):
+        accel_0.put(mov_avg[0][x][0])
+    for x in range(len(mov_avg[1])):
+        accel_1.put(mov_avg[1][x][0])
+    for x in range(len(mov_avg[2])):
+        accel_2.put(mov_avg[2][x][0])
+    #print(len(mov_avg[0]))
+    #print(len(mov_avg[1]))
+    #print(len(mov_avg[2]))
+    #print(len(mov_avg[0]))   
+        #counts = counts + 1
+       # print(mov_avg[0][x][0])
+       # print(x)
+    #print(counts)   
+    #print(len(integ[0]))
+   # print(len(integ[1]))
+    #print(len(integ[2]))
+    #for v in zip(*integ):
+    #   print(*v)
     
 
 #print(mov_avg_accel)
