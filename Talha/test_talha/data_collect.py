@@ -1,8 +1,8 @@
 import serial
-import board
-import busio
-import adafruit_gps
-from picamera import PiCamera
+#import board
+#import busio
+#import adafruit_gps
+#from picamera import PiCamera
 from multiprocessing import Process, Queue
 import datetime
 from time import sleep
@@ -57,10 +57,10 @@ def capture_image(queue, speed_queue):
 		sleep(1)
 
 def start_collection(queue, status, process_queue):
-	uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=3000)
-	gps = adafruit_gps.GPS(uart)
-	gps.send_command(b'PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0')
-	gps.send_command(b'PMTK220,500')
+	#uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=3000)
+	#gps = adafruit_gps.GPS(uart)
+	#gps.send_command(b'PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0')
+	#gps.send_command(b'PMTK220,500')
 
 	serial0 = serial.Serial('/dev/ttyUSB0', baudrate=115200, bytesize=8, parity='N', stopbits=1)
 	send_1 = [0x42]
@@ -73,19 +73,19 @@ def start_collection(queue, status, process_queue):
 	global proc_camera
 
 	proc_xbee = Process(target=serial_read, args=(queue, speed_queue, serial0,))
-	proc_gps = Process(target=gps_read, args=(queue, speed_queue, gps,))
-	proc_camera = Process(target=capture_image, args=(queue, speed_queue,))
+	#proc_gps = Process(target=gps_read, args=(queue, speed_queue, gps,))
+	#proc_camera = Process(target=capture_image, args=(queue, speed_queue,))
 	proc_xbee.start()
-	proc_gps.start()
-	proc_camera.start()
+	#proc_gps.start()
+	#proc_camera.start()
 	status.put("Data Collection Started")
 
 def finish_collection(status):
 
-	proc_gps.terminate()
+	#proc_gps.terminate()
 	proc_xbee.terminate()
-	proc_camera.terminate()
+	#proc_camera.terminate()
 
-	proc_gps.join()
+	#proc_gps.join()
 	proc_xbee.join()
-	proc_camera.join()
+	#proc_camera.join()
