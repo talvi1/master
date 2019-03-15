@@ -38,8 +38,33 @@ def trapezoidal_method(list):
     for x in range(1, size):
         out[x] = out[x-1] + (list[x-1]+list[x])/(2*fs)
     return out
-def roughness_index(list):
-    return 0
+def roughness_index(list, speed):
+    car_speed = speed.get()
+    sample_speed = 200.0
+    #out = np.zeros()
+    # len0 = len(list[0])
+    # len1 = len(list[1])
+    # len2 = len(list[2])
+    # while len0 != len1 and len1 != len2 and len0 != len2:
+    #     if len0 % 100 != 0:
+    #
+    #
+    # window = int(sample_speed/(0.277778*car_speed))
+    # window = round(window/50)*50
+    # if car_speed < 55:
+    i = 0
+    iri = np.zeros(shape=(10, 1))
+    for x in range(10):
+        for z in range(10):
+            iri[x] += abs(list[0][z+i] - list[1][z+i])
+        iri[x] = iri[x]/10
+        i += 10
+    # if (speed < 10):
+    #     return 0
+    # elif (speed < 30):
+    #
+    # elif (speed < 55):
+    return iri
 
 def plot_fft(data, fig):
     N = len(data)
@@ -72,27 +97,31 @@ def plot_mag_response():
 def plot_figure(count):
     plt.figure(count)
     plt.show()
-def process_signal(accel_list, accel_0, accel_1, accel_2):
+def process_signal(accel_list, accel_0, accel_1, accel_2, speed):
     global counts
-
+    accel = np.zeros(shape=(len(accel_list[0]), 1))
+    for x in range(len(accel_list[0])):
+        accel[x] = accel_list[0][x]
     dc_block = [[] for i in range(3)]
     mov_avg = [[] for i in range(3)]
     integ = [[] for i in range(3)]
     dc_block[0] = dc_blocker(accel_list[0])
     dc_block[1]= dc_blocker(accel_list[1])
     dc_block[2] = dc_blocker(accel_list[2])
-    mov_avg[0] = moving_average(dc_block[0], 5)
-    mov_avg[1] = moving_average(dc_block[1], 5)
-    mov_avg[2] = moving_average(dc_block[2], 5)
+    mov_avg[0] = moving_average(dc_block[0], 15)
+    mov_avg[1] = moving_average(dc_block[1], 15)
+    mov_avg[2] = moving_average(dc_block[2], 15)
     integ[0] = simpsons_method(mov_avg[0])
     integ[1] = simpsons_method(mov_avg[1])
     integ[2] = simpsons_method(mov_avg[2])
-    for x in range(len(integ[0])):
-        accel_0.put(integ[0][x][0])
-    for x in range(len(integ[1])):
-        accel_1.put(integ[1][x][0])
-    for x in range(len(dc_block[2])):
-        accel_2.put(dc_block[2][x][0])
+    for x in range(len(mov_avg[0])):
+        accel_0.put(mov_avg[0][x][0])
+    for x in range(len(mov_avg[1])):
+        accel_1.put(mov_avg[1][x][0])
+    y = roughness_index(integ, speed)
+    for x in range(len(y)):
+        accel_2.put(y[x][0])
+
     #print(len(mov_avg[0]))
     #print(len(mov_avg[1]))
     #print(len(mov_avg[2]))

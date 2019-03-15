@@ -13,6 +13,7 @@ millis = time.ctime()
 start_time = time.time()
 def serial_read(queue, speed_queue, s):
 	while True:
+		speed_queue.put(15.5)
 		speed = 0
 		if (speed < 5.0):
 			e = s.read()
@@ -35,7 +36,7 @@ def gps_read(queue, speed_queue, gps):
 			speed = gps.speed_knots
 			#speed_km = 1.852*speed
 			for x in range(70):
-				speed_queue.put(0)
+				speed_queue.put(15.5)
 			latitude = gps.latitude
 			longitude = gps.longitude
 			queue.put('GPS0'+str(50.45332) + "|" + str(-104.5432))
@@ -56,7 +57,7 @@ def capture_image(queue, speed_queue):
 			#camera.capture(fileName, use_video_port=True)
 		sleep(1)
 
-def start_collection(queue, status, process_queue):
+def start_collection(queue, status, process_queue, speed_queue):
 	#uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=3000)
 	#gps = adafruit_gps.GPS(uart)
 	#gps.send_command(b'PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0')
@@ -66,7 +67,6 @@ def start_collection(queue, status, process_queue):
 	send_1 = [0x42]
 	serial0.write(serial.to_bytes(send_1))
 
-	speed_queue = Queue()
 
 	global proc_xbee
 	global proc_gps
