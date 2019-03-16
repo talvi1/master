@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<style>
+table,th,td {
+  border : 1px solid black;
+  border-collapse: collapse;
+}
+th,td {
+  padding: 5px;
+}
+</style>
+<body>
+<h2>upload images</h2>
+
+<form>
+    <button type="button" onclick="foo()">Click Me</button>
+</form>
+<br>
+<div id="txtHint"></div>
+
+<script>
+function foo() {
+  var xhttp;  
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("txtHint").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "loadimages.php", true);
+  xhttp.send();
+}
+</script>
+</body>
+</html>
+

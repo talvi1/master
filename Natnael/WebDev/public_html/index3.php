@@ -18,7 +18,7 @@
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
     
-    
+    <script type="text/javascript" src="main.js"></script>
     <link rel="stylesheet"  href="bootstrap.min.css">
     <link rel="stylesheet"  href="widescreen.css">
     
@@ -165,21 +165,14 @@
 <!--Main Layout-->
 <main>
 <section>
-    <div id = "mainMap" class="map card card-5"> </div>  
-    <div class="r_pi_image"> <img src="Images/processed/7.jpg" class="rounded" alt=" "  > <button class = "img_button" >Processed Image</button> </div>
+    <div id = "mainMap" class="map card card-5"> </div>
+    <div class="r_pi_image"> <img src="Images/processed/7.jpg" class="rounded" alt=" "  > <button class = "img_button" onclick="foo()">Processed Image</button><div id="txtHint"></div></div>
 </section>
-
       <div class="graph">IRI graph<canvas class = "iriGraph" id="myChart" ></canvas></div>
-    
+</main>
 
-    
-
-  </main>
   <!--Main Layout-->
     <!-- SCRIPTS -->
-
-
-
     <script type="text/javascript" src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/js/compiled-4.7.3.min.js"></script>
     <div class="hiddendiv common"></div>
     <!-- Chart.js -->
@@ -194,20 +187,29 @@
     Ps.initialize(sideNavScrollbar);
     </script>
     <div class="drag-target" style="left: 0px;"></div>
-
+<script>
+    function foo() {
+  var xhttp;  
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("txtHint").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "loadimages.php", true);
+  xhttp.send();
+}
+</script>
     <script>
               mapboxgl.accessToken = 'pk.eyJ1IjoibmF0bmFlbDIwMTgiLCJhIjoiY2pvNmZlNWZwMDAzcTN2bHJ2bjA2NnpjZCJ9.I5O9qpqoic0OG9fftNwotQ';
               const map = new mapboxgl.Map({
               container: 'mainMap',
               style: 'mapbox://styles/natnael2018/cjt9t92pw0k9s1fphj13vavpv',
               center: [-104.615800, 50.448100],
-              zoom: 11.0,
-              pitch: 40,
-              
+              zoom: 11.0
               });
+      </script>
 
-</script>
-<script type="text/javascript" src="main.js"></script>
     <!-- Bootstrap core JavaScript -->
     <script type="text/javascript" src="https://mdbootstrap.com/previews/docs/latest/js/bootstrap.min.js"></script>
 
@@ -228,7 +230,7 @@
     <!-- Chart.js -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
-    <script type="text/javascript" src="turf.min.js"></script>
+
     <script type="text/javascript" src="mychart.js"></script>
     </body>
 

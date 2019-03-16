@@ -2,28 +2,49 @@
 <html lang="en">
 
 <head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" media="screen and (min-width: 992px)" href="desktop.css">
+    <link rel="stylesheet" media="screen and (max-width: 992px)" href="smallscreen.css">
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Road Quality</title>
-    <link rel="icon" href="logo.png">
-    <meta name="viewport" content="width=device-width">
-         
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <!-- JQuery -->
-    <script type="text/javascript" src="https://mdbootstrap.com/previews/docs/latest/js/jquery-3.3.1.min.js"></script>
+
+        <!-- JQuery -->
+        <script type="text/javascript" src="https://mdbootstrap.com/previews/docs/latest/js/jquery-3.3.1.min.js"></script>
+
     <!-- Tooltips -->
     <script type="text/javascript" src="https://mdbootstrap.com/previews/docs/latest/js/popper.min.js"></script>
-     <!-- Material Design Bootstrap -->
-     <link href="https://mdbootstrap.com/previews/docs/latest/css/mdb.min.css" rel="stylesheet">
-     
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://mdbootstrap.com/previews/docs/latest/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Material Design Bootstrap -->
+    <link href="https://mdbootstrap.com/previews/docs/latest/css/mdb.min.css" rel="stylesheet">
+
+    <link href="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/css/compiled-4.7.3.min.css" rel="stylesheet">
+    <style>/* Only for snippet */  .double-nav .breadcrumb-dn { color: #fff;    }       </style>
+
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />   
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
+
     
     
-    <link rel="stylesheet"  href="bootstrap.min.css">
-    <link rel="stylesheet"  href="widescreen.css">
+    <style>
+        #mainMap { position:absolute; top:10%; bottom:0; width:58%; height:50% }
+    </style>
+
     
-   
+    
+    
 </head>
+
 <body class="hidden-sn mdb-skin">
 
   <!--Double navigation-->
@@ -164,13 +185,13 @@
 
 <!--Main Layout-->
 <main>
-<section>
-    <div id = "mainMap" class="map card card-5"> </div>  
-    <div class="r_pi_image"> <img src="Images/processed/7.jpg" class="rounded" alt=" "  > <button class = "img_button" >Processed Image</button> </div>
-</section>
 
-      <div class="graph">IRI graph<canvas class = "iriGraph" id="myChart" ></canvas></div>
-    
+    <div class="grid-container">
+      <div id = "mainMap" class="map"></div>  
+      <div class="image"> <img src="Images/8.png" class="rounded" alt="Cinque" width="100%" height="90%"><br>bb</div>
+      <div class="graph">graph<canvas id="myChart" ></canvas></div>
+    </div>
+
 
     
 
@@ -179,7 +200,7 @@
     <!-- SCRIPTS -->
 
 
-
+  
     <script type="text/javascript" src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/js/compiled-4.7.3.min.js"></script>
     <div class="hiddendiv common"></div>
     <!-- Chart.js -->
@@ -199,15 +220,12 @@
               mapboxgl.accessToken = 'pk.eyJ1IjoibmF0bmFlbDIwMTgiLCJhIjoiY2pvNmZlNWZwMDAzcTN2bHJ2bjA2NnpjZCJ9.I5O9qpqoic0OG9fftNwotQ';
               const map = new mapboxgl.Map({
               container: 'mainMap',
-              style: 'mapbox://styles/natnael2018/cjt9t92pw0k9s1fphj13vavpv',
+              style: 'mapbox://styles/natnael2018/cjp80egth46z62rpbldhxofnb',
               center: [-104.615800, 50.448100],
-              zoom: 11.0,
-              pitch: 40,
-              
+              zoom: 11.0
               });
+      </script>
 
-</script>
-<script type="text/javascript" src="main.js"></script>
     <!-- Bootstrap core JavaScript -->
     <script type="text/javascript" src="https://mdbootstrap.com/previews/docs/latest/js/bootstrap.min.js"></script>
 
@@ -215,21 +233,18 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 
     
-   
+    <script async="" src="//www.google-analytics.com/analytics.js"></script>
+    <!-- Chart.js -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
 
    <!-- JQuery -->
    <script type="text/javascript" src="https://mdbootstrap.com/previews/docs/latest/js/jquery-3.3.1.min.js"></script>
 
-    <!-- Tooltips -->
-    <script type="text/javascript" src="https://mdbootstrap.com/previews/docs/latest/js/popper.min.js"></script>
-        <!-- MDB core JavaScript -->
-
-        <script async="" src="//www.google-analytics.com/analytics.js"></script>
-    <!-- Chart.js -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
-    <script type="text/javascript" src="turf.min.js"></script>
-    <script type="text/javascript" src="mychart.js"></script>
-    </body>
+<!-- Tooltips -->
+<script type="text/javascript" src="https://mdbootstrap.com/previews/docs/latest/js/popper.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="initial-javascript.js"></script>
+</body>
 
 </html>

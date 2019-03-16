@@ -154,7 +154,7 @@ void calibration(I2C_HandleTypeDef* I2C)
 		print_str("Error setting ZA_OFFSET_H") ;
 	}
 	reg[0] = ZA_OFFSET_L_TC;
-	reg[1] = 0xCB;
+	reg[1] = 0x99;
 	if(HAL_I2C_Master_Transmit(handle, address, reg, 2, 1000) != HAL_OK)
 	{
 		print_str("Error setting ZA_OFFSET_L_TC") ;
