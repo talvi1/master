@@ -38,9 +38,30 @@ def trapezoidal_method(list):
     for x in range(1, size):
         out[x] = out[x-1] + (list[x-1]+list[x])/(2*fs)
     return out
-def roughness_index(list):
-    return 0
-        
+def roughness_right(list, speed):
+    car_speed = speed.get()
+    sample_speed = 200.0
+    i = 0
+    iri_right = np.zeros(shape=(10, 1))
+    for x in range(10):
+        for z in range(10):
+            iri_right[x] += abs(list[2][z+i] - list[0][z+i])
+        iri_right[x] = iri_right[x]/10
+        i += 10
+
+    return iri_right
+def roughness_left(list, speed):
+    car_speed = speed.get()
+    sample_speed = 200.0
+    i = 0
+    iri_left = np.zeros(shape=(10, 1))
+    for x in range(10):
+        for z in range(10):
+            iri_left[x] += abs(list[1][z+i] - list[0][z+i])
+        iri_left[x] = iri_left[x]/10
+        i += 10
+    return iri_left  
+
 def plot_fft(data, fig):
     N = len(data)
     T = 1.0/100.0 #1/sample rate of device
@@ -72,18 +93,20 @@ def plot_mag_response():
 def plot_figure(count):
     plt.figure(count)
     plt.show()
-def process_signal(accel_list, accel_0, accel_1, accel_2):
+def process_signal(accel_list, accel_0, accel_1, accel_2, speed, iri):
     global counts
-    
+    accel = np.zeros(shape=(len(accel_list[0]), 1))
+    for x in range(len(accel_list[0])):
+        accel[x] = accel_list[0][x]
     dc_block = [[] for i in range(3)]
     mov_avg = [[] for i in range(3)]
     integ = [[] for i in range(3)]
     dc_block[0] = dc_blocker(accel_list[0])
     dc_block[1]= dc_blocker(accel_list[1])
     dc_block[2] = dc_blocker(accel_list[2])
-    mov_avg[0] = moving_average(dc_block[0], 5)
-    mov_avg[1] = moving_average(dc_block[1], 5)
-    mov_avg[2] = moving_average(dc_block[2], 5)
+    mov_avg[0] = moving_average(dc_block[0], 15)
+    mov_avg[1] = moving_average(dc_block[1], 15)
+    mov_avg[2] = moving_average(dc_block[2], 15)
     integ[0] = simpsons_method(mov_avg[0])
     integ[1] = simpsons_method(mov_avg[1])
     integ[2] = simpsons_method(mov_avg[2])
@@ -93,20 +116,25 @@ def process_signal(accel_list, accel_0, accel_1, accel_2):
         accel_1.put(mov_avg[1][x][0])
     for x in range(len(mov_avg[2])):
         accel_2.put(mov_avg[2][x][0])
+    y0 = roughness_right(integ, speed)
+    y1 = roughness_left(integ, speed)
+    for x in range(len(y0)):
+        iri.put([y0[x][0], y1[x][0]])
+        
     #print(len(mov_avg[0]))
     #print(len(mov_avg[1]))
     #print(len(mov_avg[2]))
-    #print(len(mov_avg[0]))   
+    #print(len(mov_avg[0]))
         #counts = counts + 1
        # print(mov_avg[0][x][0])
        # print(x)
-    #print(counts)   
+    #print(counts)
     #print(len(integ[0]))
    # print(len(integ[1]))
     #print(len(integ[2]))
     #for v in zip(*integ):
     #   print(*v)
-    
+
 
 #print(mov_avg_accel)
 #plt.figure(1)

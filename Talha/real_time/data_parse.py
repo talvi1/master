@@ -47,41 +47,47 @@ def get_count_frames(list):
                 device_1 = device_1 + 1
             elif (address == 0x02):
                 device_2 = device_2 + 1
-    return [device_0, device_1, device_2]                
-        
+    return [device_0, device_1, device_2]
 
-def extract_queue(queue, status, accel_0, accel_1, accel_2):
+
+def extract_queue(queue, status, accel_0, accel_1, accel_2, speed, iri):
     start_time = time.time()
     while True:
         elapsed_time = time.time() - start_time
-        list = []
+        temp = [[] for x in range(3)]
+        data_list = []
         count = 0
-        device_0 = 0
-        if (queue.qsize() > 10):
-
-            for x in range(10):
-                list.append(queue.get()) 
-            frames = get_count_frames(list)
-            while frames[0] != frames[1] or frames[1] != frames[2] or frames[0] != frames[2]:
-                list.append(queue.get())
-                #print("Elapsed Time: " + str(elapsed_time))
-                frames = get_count_frames(list)
-                if (frames[0] == 5 or frames[1] == 5 or frames[2] == 5):
-                    break;
-                
+        fr = 2
+        #print(queue.qsize())
+        if (queue.qsize() > 12):
+            while len(temp[0]) != fr or len(temp[1]) != fr or len(temp[2]) != fr:
+                item = queue.get()
+                if item[0:4] == 'Xbee':
+                    device_id = item[13]
+                    #print(device_id)
+                    if device_id == '0' and len(temp[0]) < fr:
+                        temp[0].append(item)
+                    elif device_id == '1' and len(temp[1]) < fr:
+                        temp[1].append(item)
+                    elif device_id == '2' and len(temp[2]) < fr:
+                        temp[2].append(item)
+        #print(temp_list)
+            for x in range(fr):
+                data_list.append(temp[0][x])
+                data_list.append(temp[1][x])
+                data_list.append(temp[2][x])
             #print(frames)
-            parse_data(list, frames, accel_0, accel_1, accel_2)
-            print(accel_0.qsize())
-            #print("Elapsed Time: " + str(elapsed_time))    
-            
-            
-def parse_data(list, frames, accel_0, accel_1, accel_2):
+            parse_data(data_list, accel_0, accel_1, accel_2, speed, iri)
+    #    print("Elapsed Time: " + str(elapsed_time))
+
+
+def parse_data(list, accel_0, accel_1, accel_2, speed, iri):
     f = 0
     t = 0
     #print(list)
     count = 0
     frame_count = 0
-   # print(list)
+    #print(list)
     multi_list = [[] for i in range(3)]
     gps_list = [[] for i in range(2)]
     for x in range(len(list)):
@@ -125,15 +131,14 @@ def parse_data(list, frames, accel_0, accel_1, accel_2):
             s = temp[4:].split('|')
             gps_list[0].append(s[0])
             gps_list[1].append(s[1])
-    signal_process.process_signal(multi_list, accel_0, accel_1, accel_2)
+    signal_process.process_signal(multi_list, accel_0, accel_1, accel_2, speed, iri)
     #for v in zip(*multi_list):
      #  print(*v)
     #print(frame_count)
     #print(multi_list[0])
     #print(len(multi_list))
-                                           
-    #print(multi_list[4])        
-    #print(multi_list)        
+
+    #print(multi_list[4])
+    #print(multi_list)
     #print("Frames Processed Correctly: " + str(t))
     #print("Frames Processed Incorrectly: " + str(f))
-

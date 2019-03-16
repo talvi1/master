@@ -47,7 +47,7 @@ def capture_image():
 		if (speed < 5.0):
 			fileName = 'image_' + str(datetime.datetime.now().strftime("%d_%b_%Y_%H_%M_%S")) + '.jpg'
 			queue.put(fileName)
-			camera.capture(fileName, use_video_port=True)
+			#camera.capture(fileName, use_video_port=True)
 		sleep(1)
 				
 
@@ -61,11 +61,11 @@ gps.send_command(b'PMTK220,500')
 
 timestamp = time.monotonic()
 
-camera = PiCamera()
-camera.rotation = 180
-camera.resolution = (1920, 1080)
-camera.framerate = 60
-camera.brightness = 55
+#camera = PiCamera()
+#camera.rotation = 180
+#camera.resolution = (1920, 1080)
+#camera.framerate = 60
+#camera.brightness = 55
 
 
 speed_queue = queue.Queue(0)
@@ -79,8 +79,7 @@ serial0.write(serial.to_bytes(send_1))
 thread1 = threading.Thread(target=serial_read, args=(serial0,),).start()
 thread2 = threading.Thread(target=gps_read, args=(gps,),).start()
 thread2 = threading.Thread(target=capture_image,).start()
-
-with open("test.csv", mode='w', buffering=1) as csvfile:
+with open("40km_right_wheel.csv", mode='w', buffering=1) as csvfile:
 	elapsed_time = time.time() - start_time
 	while elapsed_time < 60.0:
 		elapsed_time = time.time() - start_time

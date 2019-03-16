@@ -47,16 +47,16 @@ def capture_image(queue, speed_queue):
 	camera.rotation = 180
 	camera.resolution = (1920, 1080)
 	camera.framerate = 60
-	camera.brightness = 55
+	camera.brightness = 50
 	while True:
 		speed = speed_queue.get()
 		if (speed < 5.0):
 			fileName = 'image_' + str(datetime.datetime.now().strftime("%d_%b_%Y_%H_%M_%S")) + '.jpg'
 			queue.put(fileName)
-			#camera.capture(fileName, use_video_port=True)
-		sleep(1)
+			#camera.capture(fileName)
+		sleep(0.75)
 
-def start_collection(queue, status, process_queue):
+def start_collection(queue, status, process_queue, speed_queue):
 	uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=3000)
 	gps = adafruit_gps.GPS(uart)
 	gps.send_command(b'PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0')
@@ -65,8 +65,6 @@ def start_collection(queue, status, process_queue):
 	serial0 = serial.Serial('/dev/ttyUSB0', baudrate=115200, bytesize=8, parity='N', stopbits=1)
 	send_1 = [0x42]
 	serial0.write(serial.to_bytes(send_1))
-
-	speed_queue = Queue()
 
 	global proc_xbee
 	global proc_gps
@@ -77,7 +75,7 @@ def start_collection(queue, status, process_queue):
 	proc_camera = Process(target=capture_image, args=(queue, speed_queue,))
 	proc_xbee.start()
 	proc_gps.start()
-	proc_camera.start()
+	#proc_camera.start()
 	status.put("Data Collection Started")
 
 def finish_collection(status):
