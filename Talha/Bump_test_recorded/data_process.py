@@ -28,7 +28,7 @@ def twos_complement(value):
         value = -1*((~value & 0xFFFF) + 1)
     return value
 
-with open("30km_both_wheels.csv", mode='r') as csvfile:
+with open("40km_right_wheel.csv", mode='r') as csvfile:
     my_list = []
     reader = csv.reader(csvfile)
     for row in reader:
@@ -38,7 +38,7 @@ lists = [my_list[x][0] for x in range(0, len(my_list))]
 #list = [splitCount(lists[x]) for x in range(len(lists))]
 f = 0
 t = 0
-with open("30km_both_wheels_accelerometer_signal.csv", mode='a', buffering=1) as csvfile2:
+with open("40km_right_wheel_accelerometer_signal.csv", mode='a', buffering=1) as csvfile2:
     csvwrite = csv.writer(csvfile2, delimiter='|')
     csvwrite.writerow(['GPS_Coordinates'] + ['Accel_Z_Device0'] + ['Accel_Z_Device1'] + ['Accel_Z_Device2'] + ['Image_Index'])
     count = 0
