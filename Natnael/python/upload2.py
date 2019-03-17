@@ -33,7 +33,7 @@ for i in range(len(data)):
     print()
 
 print()
-print(listVlaue) 
+print(listVlaue)
 #sql = ("SELECT * FROM data_r_pi")
 sql = ("INSERT INTO data_r_pi (originalImage, processedImage, iri, gpslat,gpslog,dateRecorded )  VALUES "+ listVlaue)
 print(sql)
@@ -49,4 +49,3 @@ for row in cur:
 
 cur.close()
 conn.close()
-

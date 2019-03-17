@@ -8,44 +8,45 @@ import plot
 
 
 
-queue = Queue()
-status = Queue()
-accel_0 = Queue()
-accel_1 = Queue()
-accel_2 = Queue()
+data_queue = Queue()
+status_queue = Queue()
+accel = Queue()
 car_speed = Queue()
-process_queue = Queue()
-data_collect.start_collection(queue, status, process_queue, car_speed)
+iri = Queue()
 
+data_collect.start_collection(data_queue, status_queue, car_speed)
 
+graph = Process(target=plot.display, args=(accel, iri))
+# graph.start()
 
-graph = Process(target=plot.display, args=('bob',accel_0, accel_1, accel_2))
-graph.start()
-#sleep(10)
-proc_parse = Process(target=data_parse.extract_queue, args=(queue, status, accel_0, accel_1, accel_2, car_speed))
+proc_parse = Process(target=data_parse.extract_queue, args=(data_queue, status_queue, accel, car_speed, iri))
 proc_parse.start()
-#for x in range(10000):
-   # graph_queue.put([x, 1])
+
 start_time = time.time()
 while True:
     elapsed_time = time.time() - start_time
-    if (not status.empty()):
-        msg = status.get()
-        print(msg)
-        print(queue.qsize())
-        if msg == "Processes Exited":
+    if (not status_queue.empty()):
+        msg = status_queue.get()
+        print(msg[1])
+        if msg[0] == 0:
+            data_collect.finish_collection()
+            proc_parse.terminate()
+            proc_parse.join()
+            graph.terminate()
+            graph.join()
             quit()
 
-    #if (not queue.empty()):
-    #    print(queue.get())
+   # if (not queue.empty()):
+      #  print(queue.get())
       #  print(elapsed_time)
 
    # print(elapsed_time)
     #sleep(0.1)
     if (elapsed_time > 180.0 and elapsed_time < 180.05):
-        data_collect.finish_collection(status)
+        data_collect.finish_collection()
         proc_parse.terminate()
         proc_parse.join()
+        #pg.QtGui.QApplication.exec_()
         graph.terminate()
         graph.join()
         status.put("Processes Exited")

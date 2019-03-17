@@ -1,6 +1,7 @@
 from multiprocessing import Process, Queue
 import time
 import signal_process
+import numpy as np
 
 def get_identity(seq):
      return seq[0:4]
@@ -50,18 +51,20 @@ def get_count_frames(list):
     return [device_0, device_1, device_2]
 
 
-def extract_queue(queue, status, accel_0, accel_1, accel_2, speed):
-    start_time = time.time()
+def extract_queue(data_queue, status, accel, speed, iri):
+
     while True:
-        elapsed_time = time.time() - start_time
+        start_time = time.time()
+
         temp = [[] for x in range(3)]
         data_list = []
         count = 0
-        fr = 2
+        fr = 8
         #print(queue.qsize())
-        if (queue.qsize() > 12):
+        if (data_queue.qsize() > 22):
             while len(temp[0]) != fr or len(temp[1]) != fr or len(temp[2]) != fr:
-                item = queue.get()
+                elapsed_time = time.time() - start_time
+                item = data_queue.get()
                 if item[0:4] == 'Xbee':
                     device_id = item[13]
                     #print(device_id)
@@ -71,25 +74,28 @@ def extract_queue(queue, status, accel_0, accel_1, accel_2, speed):
                         temp[1].append(item)
                     elif device_id == '2' and len(temp[2]) < fr:
                         temp[2].append(item)
+                else:
+                    data_list.append(item)
+
+                if elapsed_time > 5.0:
+                    status.put([0, 'Not all devices transmitting'])
         #print(temp_list)
             for x in range(fr):
                 data_list.append(temp[0][x])
                 data_list.append(temp[1][x])
                 data_list.append(temp[2][x])
             #print(frames)
-            parse_data(data_list, accel_0, accel_1, accel_2, speed)
+            parse_data(data_list, status, accel, speed, iri)
     #    print("Elapsed Time: " + str(elapsed_time))
 
 
-def parse_data(list, accel_0, accel_1, accel_2, speed):
+def parse_data(list, status, accel, speed, iri):
     f = 0
     t = 0
-    #print(list)
-    count = 0
     frame_count = 0
     #print(list)
     multi_list = [[] for i in range(3)]
-    gps_list = [[] for i in range(2)]
+    list_upload = [[] for i in range(6)]
     for x in range(len(list)):
         ident = get_identity(list[x])
         if (ident == 'Xbee'):
@@ -111,29 +117,35 @@ def parse_data(list, accel_0, accel_1, accel_2, speed):
             if (address == 0x00 and ver):
                 for x in range(len(data)):
                     multi_list[0].append(data[x])
-                count += 1
             elif (address == 0x01 and ver):
                 for x in range(len(data)):
                     multi_list[1].append(data[x])
-                count += 1
             elif (address == 0x02 and ver):
                 for x in range(len(data)):
                     multi_list[2].append(data[x])
-                count += 1
-            if (count == 3):
-                count = 0
-                for i in range(0, 2):
-                    for j in range(0, 50):
-                        if (len(multi_list[i]) < 50):
-                            multi_list[i].append(9.83285)
-        elif (ident == 'GPS0'):
+        elif ident == 'GPS0':
             temp = list[x]
             s = temp[4:].split('|')
-            gps_list[0].append(s[0])
-            gps_list[1].append(s[1])
-    signal_process.process_signal(multi_list, accel_0, accel_1, accel_2, speed)
-    #for v in zip(*multi_list):
-     #  print(*v)
+            list_upload[1].append(float(s[0]))
+            list_upload[2].append(float(s[1]))
+        elif ident == 'Time':
+            list_upload[0].append(list[x][4:])
+        elif ident == 'Imag':
+            list_upload[3].append(list[x])
+    roughness = signal_process.process_signal(multi_list, status, accel, speed, iri)
+    #z = np.linspace(list_upload[1][0], list_upload[1][-1], len(roughness))
+    lat = np.linspace(list_upload[1][0], list_upload[2][0], len(roughness))
+    long = np.linspace(list_upload[2][0], list_upload[1][0], len(roughness))
+    z = []
+    lesn = int(len(roughness)/len(list_upload[3]))
+    for i in range(len(list_upload[3])):
+        for j in range(lesn):
+            z.append(list_upload[3][i])
+
+    print(len(z))
+    #print(np.linspace(list_upload[1][0], list_upload[2][-1], len(roughness)))
+    # for v in zip(*list_upload):
+    #     print(*v)
     #print(frame_count)
     #print(multi_list[0])
     #print(len(multi_list))
