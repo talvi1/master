@@ -2,6 +2,7 @@ from multiprocessing import Process, Queue
 import time
 import signal_process
 import numpy as np
+import upload
 
 def get_identity(seq):
      return seq[0:4]
@@ -95,7 +96,7 @@ def parse_data(list, status, accel, speed, iri):
     frame_count = 0
     #print(list)
     multi_list = [[] for i in range(3)]
-    list_upload = [[] for i in range(6)]
+    store = [[] for i in range(3)]
     for x in range(len(list)):
         ident = get_identity(list[x])
         if (ident == 'Xbee'):
@@ -126,23 +127,31 @@ def parse_data(list, status, accel, speed, iri):
         elif ident == 'GPS0':
             temp = list[x]
             s = temp[4:].split('|')
-            list_upload[1].append(float(s[0]))
-            list_upload[2].append(float(s[1]))
-        elif ident == 'Time':
-            list_upload[0].append(list[x][4:])
+            store[1].append(float(s[0]))
+            store[2].append(float(s[1]))
         elif ident == 'Imag':
-            list_upload[3].append(list[x])
+            store[0].append(list[x])
     roughness = signal_process.process_signal(multi_list, status, accel, speed, iri)
-    #z = np.linspace(list_upload[1][0], list_upload[1][-1], len(roughness))
-    lat = np.linspace(list_upload[1][0], list_upload[2][0], len(roughness))
-    long = np.linspace(list_upload[2][0], list_upload[1][0], len(roughness))
+    lat = np.linspace(store[1][0], store[2][0], len(roughness))
+    longi = np.linspace(store[2][0], store[1][0], len(roughness))
     z = []
-    lesn = int(len(roughness)/len(list_upload[3]))
-    for i in range(len(list_upload[3])):
+    lesn = int(len(roughness)/len(store[0]))
+    for i in range(len(store[0])):
         for j in range(lesn):
-            z.append(list_upload[3][i])
-
-    print(len(z))
+            z.append(store[0][i])
+    if (len(z)) != len(roughness):
+        for x in range(len(roughness) - len(z)):
+            z.append(store[0][-1])
+    list_upload = [[] for i in range(5)]
+    list_upload[0] = z
+    list_upload[1] = z
+    list_upload[2] = roughness
+    list_upload[3] = lat
+    list_upload[4] = longi
+    for i in range(len(list_upload)):
+        print(len(list_upload[i]))
+    print(list_upload[0])
+    upload.upload_mysql(list_upload)
     #print(np.linspace(list_upload[1][0], list_upload[2][-1], len(roughness)))
     # for v in zip(*list_upload):
     #     print(*v)

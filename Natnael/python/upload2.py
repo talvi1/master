@@ -3,11 +3,11 @@ conn = pymysql.connect(host='162.241.253.63', user ='roadqual_admin',password='a
 
 
 data = [
-    ["image_origina.jpg","image_processed.jpg",4,50.4776842,-104.6371096,"2019-02-24"],
-    ["image_origina.jpg","image_processed.jpg",4,50.4776842,-104.6371096,"2019-02-24"],
-    ["image_origina.jpg","image_processed.jpg",4,50.4776842,-104.6371096,"2019-02-24"],
-    ["image_origina.jpg","image_processed.jpg",4,50.4776842,-104.6371096,"2019-02-24"],
-    ["image_origina.jpg","image_processed.jpg",4,50.4776842,-104.6371096,"2019-02-24"]
+    ["image_origina.jpg","image_processed.jpg",4,50.4776842,-104.6371096],
+    ["image_origina.jpg","image_processed.jpg",4,50.4776842,-104.6371096],
+    ["image_origina.jpg","image_processed.jpg",4,50.4776842,-104.6371096],
+    ["image_origina.jpg","image_processed.jpg",4,50.4776842,-104.6371096],
+    ["image_origina.jpg","image_processed.jpg",4,50.4776842,-104.6371096]
 
 ]
 
@@ -21,11 +21,11 @@ for i in range(len(data)):
             listVlaue += "\""+data[i][j]+"\", "
         elif(j==1):
             listVlaue += "\""+data[i][j]+"\", "
-        elif(j==5):
-            listVlaue += "'"+data[i][j]+"'"
+        elif(j==4):
+            listVlaue += "'"+str (data[i][j])+"'"
         else:
             listVlaue += str (data[i][j])+", "
-        print(data[i][j], end=' ')
+        print(data[i][j])
     if(i==len(data)-1):
         listVlaue += ")"
     else:
@@ -35,7 +35,7 @@ for i in range(len(data)):
 print()
 print(listVlaue)
 #sql = ("SELECT * FROM data_r_pi")
-sql = ("INSERT INTO data_r_pi (originalImage, processedImage, iri, gpslat,gpslog,dateRecorded )  VALUES "+ listVlaue)
+sql = ("INSERT INTO data_r_pi (originalImage, processedImage, iri, gpslong,gpslat)  VALUES "+ listVlaue)
 print(sql)
 cur = conn.cursor()
 cur.execute(sql)
