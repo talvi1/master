@@ -98,7 +98,7 @@ def plot_mag_response():
 def convert():
     return 0
 
-df = pd.read_csv('parsed_data/30km_right_wheel_accelerometer_signal.csv', sep='|')
+df = pd.read_csv('parsed_data/40km_right_wheel_accelerometer_signal.csv', sep='|')
 
 Accel_Z_Device0 = df['Accel_Z_Device0']
 Accel_Z_Device1 = df['Accel_Z_Device1']
@@ -136,13 +136,13 @@ mov_avg_accel_2 = [moving_average(accel_z_2[i], 9) for i in range(len(accel_z_2)
 # integ_1 = [simpsons_method(mov_avg_accel_1[i]) for i in range(len(mov_avg_accel_1))]
 # integ_2 = [simpsons_method(mov_avg_accel_2[i]) for i in range(len(mov_avg_accel_2))]
 
-# integ_0 = [simpsons_method(low_pass_0[i]) for i in range(len(low_pass_0))]
-# integ_1 = [simpsons_method(low_pass_1[i]) for i in range(len(low_pass_1))]
-# integ_2 = [simpsons_method(low_pass_2[i]) for i in range(len(low_pass_2))]
+integ_0 = [simpsons_method(low_pass_0[i]) for i in range(len(low_pass_0))]
+integ_1 = [simpsons_method(low_pass_1[i]) for i in range(len(low_pass_1))]
+integ_2 = [simpsons_method(low_pass_2[i]) for i in range(len(low_pass_2))]
 
-integ_0 = [simpsons_method(band_pass_0[i]) for i in range(len(band_pass_0))]
-integ_1 = [simpsons_method(band_pass_1[i]) for i in range(len(band_pass_1))]
-integ_2 = [simpsons_method(band_pass_2[i]) for i in range(len(band_pass_2))]
+# integ_0 = [simpsons_method(band_pass_0[i]) for i in range(len(band_pass_0))]
+# integ_1 = [simpsons_method(band_pass_1[i]) for i in range(len(band_pass_1))]
+# integ_2 = [simpsons_method(band_pass_2[i]) for i in range(len(band_pass_2))]
 
 iri_1 = [roughness(integ_1[i], integ_0[i]) for i in range(len(integ_1))]
 iri_2 = [roughness(integ_2[i], integ_0[i]) for i in range(len(integ_2))]
@@ -176,10 +176,23 @@ y = np.ones(200)
 # print(y)
 # print(accel_z_2[15])
 # l = signal.lfilter(z, [1.0], accel_z_2[15])band_pass
-plt.figure(1)
+fig = plt.figure()
+plt.subplot(2, 1 ,1)
 plt.plot(iri_1)
-plt.figure(2)
+plt.ylim(0, 10)
+plt.ylabel('Roughness(m/m)')
+plt.xlabel('Samples (k)')
+plt.title('Roughness Right Wheel at 40 km/h using Low Pass')
+plt.subplot(2, 1, 2)
 plt.plot(iri_2)
+plt.ylabel('Roughness(m/m)')
+plt.xlabel('Samples (k)')
+plt.title('Roughness Left Wheel at 40 km/h using Low Pass')
+plt.ylim(0, 10)
+
+plt.show()
+
+#plt.savefig('Roughness_30_kmh_right_wheel_low_pass.png', dpi=1200)
 
 # plt.plot(band_pass_1)
 #
@@ -217,7 +230,7 @@ plt.plot(iri_2)
 # plt.plot(Accel_Z_Device0)
 # plt.figure(4)
 # plt.plot(accel_z_0)
-plt.show()
+
 
 # out = np.zeros(shape=(len(Accel_Z_Device2), 1))
 # for x in range(1, len(Accel_Z_Device1)):
