@@ -59,10 +59,11 @@ def extract_queue(data_queue, status, accel, speed, iri):
 
         temp = [[] for x in range(3)]
         data_list = []
+        img_list = []
         count = 0
-        fr = 8
+        fr = 10
         #print(queue.qsize())
-        if (data_queue.qsize() > 22):
+        if (data_queue.qsize() > 35):
             while len(temp[0]) != fr or len(temp[1]) != fr or len(temp[2]) != fr:
                 elapsed_time = time.time() - start_time
                 item = data_queue.get()
@@ -75,11 +76,11 @@ def extract_queue(data_queue, status, accel, speed, iri):
                         temp[1].append(item)
                     elif device_id == '2' and len(temp[2]) < fr:
                         temp[2].append(item)
-                else:
+                else:    
                     data_list.append(item)
 
                 if elapsed_time > 5.0:
-                    status.put([0, 'Not all devices transmitting'])
+                    status.put([0, 'Something is wrong...'])
         #print(temp_list)
             for x in range(fr):
                 data_list.append(temp[0][x])
@@ -132,9 +133,11 @@ def parse_data(list, status, accel, speed, iri):
         elif ident == 'Imag':
             store[0].append(list[x])
     roughness = signal_process.process_signal(multi_list, status, accel, speed, iri)
-    lat = np.linspace(store[1][0], store[2][0], len(roughness))
-    longi = np.linspace(store[2][0], store[1][0], len(roughness))
+    lat = np.linspace(store[1][0], store[1][-1], len(roughness))
+    longi = np.linspace(store[2][0], store[2][-1], len(roughness))
     z = []
+    if len(store[0]) == 0:
+        store[0].append(0)
     lesn = int(len(roughness)/len(store[0]))
     for i in range(len(store[0])):
         for j in range(lesn):
@@ -148,13 +151,13 @@ def parse_data(list, status, accel, speed, iri):
     list_upload[2] = roughness
     list_upload[3] = lat
     list_upload[4] = longi
-    for i in range(len(list_upload)):
-        print(len(list_upload[i]))
-    print(list_upload[0])
+   # for i in range(len(list_upload)):
+   #     print(len(list_upload[i]))
+   # print(list_upload[0])
     upload.upload_mysql(list_upload)
     #print(np.linspace(list_upload[1][0], list_upload[2][-1], len(roughness)))
-    # for v in zip(*list_upload):
-    #     print(*v)
+ #   for v in zip(*list_upload):
+  #       print(*v)
     #print(frame_count)
     #print(multi_list[0])
     #print(len(multi_list))

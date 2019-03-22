@@ -23,46 +23,42 @@ def serial_read(data_queue, speed_queue, s):
 def gps_read(data_queue, speed_queue, gps):
 	timestamp = time.monotonic()
 	while True:
-		if (gps.update()):
-			fix = gps.fix_quality
-			speed = gps.speed_knots
-			while fix == 0 or fix == None or speed == None:
+		gps.update()
+		current = time.monotonic()
+		if current - timestamp >= 1.0:
+			timestamp = current
+			if not gps.has_fix:
 				print ('Waiting for fix...')
-				print(fix)
-				fix = gps.fix_quality
-				speed = gps.speed_knots
-				time.sleep(1)
 				continue
-		speed = gps.speed_knots
-		speed_km = 1.852*float(speed)
-		for x in range(70):
-			speed_queue.put(0)
-		latitude = gps.latitude
-		longitude = gps.longitude
-		data_queue.put('GPS0'+str(50.45332) + "|" + str(-104.5432))
-		#data_queue.put("Time" + str(datetime.datetime.now().strftime("%d %b,%Y %H:%M")))
-		time.sleep(1)
+			speed = gps.speed_knots
+			speed_km = 1.852*float(speed)
+			for x in range(15):
+				speed_queue.put(0)
+			latitude = gps.latitude
+			longitude = gps.longitude
+			data_queue.put('GPS0'+str(latitude) + "|" + str(longitude))
+			time.sleep(1)
 
 def capture_image(data_queue, speed_queue):
 	 camera = PiCamera()
-	 camera.rotation = 180
+	 camera.rotation = 0
 	 camera.resolution = (1920, 1080)
 	 camera.framerate = 60
-	 camera.brightness = 50
+	 camera.brightness = 75
 	 while True:
 		 speed = speed_queue.get()
 		 if (speed < 5.0):
 			 fileName = 'Image_' + str(datetime.datetime.now().strftime("%d_%b_%Y_%H_%M_%S")) + '.jpg'
 			 data_queue.put(fileName)
-			 camera.capture(fileName)
-			 sleep(0.75)
+			 camera.capture(fileName, use_video_port=True)
+			 sleep(0.6)
 
 def start_collection(data_queue, status_queue, speed_queue):
 	gps = 0
 	uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=3000)
 	gps = adafruit_gps.GPS(uart)
 	gps.send_command(b'PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0')
-	gps.send_command(b'PMTK220,500')
+	gps.send_command(b'PMTK220,1000')
 
 	serial0 = serial.Serial('/dev/ttyUSB0', baudrate=115200, bytesize=8, parity='N', stopbits=1)
 	send_1 = [0x42]

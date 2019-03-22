@@ -4,6 +4,7 @@ import numpy as np
 from time import sleep
 from numpy import exp, pi, abs, angle, linspace
 import scipy.fftpack
+from scipy import signal
 from multiprocessing import Process, Queue
 
 def dc_blocker(accel):
@@ -44,11 +45,11 @@ def roughness(list):
     sample_speed = 200.0
     i = 0
     n = 10
-    m = 40
+    m = 50
     iri_right = np.zeros(m)
     iri_left = np.zeros(m)
     iri = np.zeros(m)
-    if len(list[0]) == 400:
+    if len(list[0]) == 500:
         for x in range(m):
             for z in range(n):
                 iri_left[x] += abs(list[2][z+i][0] - list[0][z+i][0])
@@ -102,11 +103,10 @@ def plot_mag_response():
 
 def process_signal(list, status, accel, speed, iri):
     dc_block = [dc_blocker(list[x]) for x in range(len(list))]
-    mov_avg = [moving_average(dc_block[x], 15) for x in range(len(dc_block))]
-    integ = [simpsons_method(mov_avg[x]) for x in range(len(mov_avg))]
-    for x in range(len(mov_avg[0])):
-        accel.put([mov_avg[0][x], mov_avg[1][x], mov_avg[2][x]])
+    band_p = [band_pass(dc_block[x]) for x in range(len(dc_block))]
+    integ = [simpsons_method(band_p[x]) for x in range(len(band_p))]
+    for x in range(len(band_p[0])):
+        accel.put([band_p[0][x], band_p[1][x], band_p[2][x]])
     r_index = roughness(integ)
-    #print(r_index)
     iri.put(r_index)
     return r_index

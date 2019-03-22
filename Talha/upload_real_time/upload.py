@@ -8,37 +8,37 @@ data_t = [
 ]
 
 
+conn = pymysql.connect(host='162.241.253.63', user ='roadqual_admin',password='admin', db='roadqual_capstone')    
 
-
-
+def close_connection():
+    cur.close()
+    conn.close()
+    
 
 def upload_mysql(data):
-    conn = pymysql.connect(host='162.241.253.63', user ='roadqual_admin',password='admin', db='roadqual_capstone')
-    listVlaue = ""
+
+    listValue = ""
     for i in range(len(data[0])):
-        listVlaue += "("
+        listValue += "("
         for j in range(len(data)):
             if(j==0):
-                listVlaue += "\""+str(data[j][i])+"\", "
+                listValue += "\""+str(data[j][i])+"\", "
             elif(j==1):
-                listVlaue += "\""+str(data[j][i])+"\", "
+                listValue += "\""+str(data[j][i])+"\", "
             elif(j==4):
-                listVlaue += "'"+str(data[j][i])+"'"
+                listValue += "'"+str(data[j][i])+"'"
             else:
-                listVlaue += str(data[j][i])+", "
+                listValue += str(data[j][i])+", "
         if(i==len(data[0])-1):
-            listVlaue += ")"
+            listValue += ")"
         else:
-            listVlaue+="), "
+            listValue+="), "
     #sql = ("SELECT * FROM data_r_pi")
-    print(listVlaue)
-    sql = ("INSERT INTO data_r_pi (originalImage, processedImage, iri, gpslong,gpslat)  VALUES "+ listVlaue)
+    sql = ("INSERT INTO data_r_pi (originalImage, processedImage, iri, gpslong,gpslat)  VALUES "+ listValue)
 
     cur = conn.cursor()
     cur.execute(sql)
 
 
-    cur.close()
-    conn.close()
-    
+
     
