@@ -147,7 +147,8 @@ def parse_data(list, status, accel, speed, iri):
             z.append(store[0][-1])
     list_upload = [[] for i in range(5)]
     list_upload[0] = z
-    list_upload[1] = z
+    for x in range(len(roughness)):
+        list_upload[1].append("Wascana_Pkway")
     list_upload[2] = roughness
     list_upload[3] = lat
     list_upload[4] = longi

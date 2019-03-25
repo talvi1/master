@@ -44,14 +44,14 @@ def capture_image(data_queue, speed_queue):
 	 camera.rotation = 0
 	 camera.resolution = (1920, 1080)
 	 camera.framerate = 60
-	 camera.brightness = 75
+	 camera.brightness = 50
 	 while True:
 		 speed = speed_queue.get()
 		 if (speed < 5.0):
 			 fileName = 'Image_' + str(datetime.datetime.now().strftime("%d_%b_%Y_%H_%M_%S")) + '.jpg'
 			 data_queue.put(fileName)
 			 camera.capture(fileName, use_video_port=True)
-			 sleep(0.6)
+			 sleep(0.75)
 
 def start_collection(data_queue, status_queue, speed_queue):
 	gps = 0

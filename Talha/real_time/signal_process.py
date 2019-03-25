@@ -4,6 +4,7 @@ import numpy as np
 from time import sleep
 from numpy import exp, pi, abs, angle, linspace
 import scipy.fftpack
+from scipy import signal
 from multiprocessing import Process, Queue
 
 def dc_blocker(accel):
@@ -102,10 +103,10 @@ def plot_mag_response():
 
 def process_signal(list, status, accel, speed, iri):
     dc_block = [dc_blocker(list[x]) for x in range(len(list))]
-    mov_avg = [moving_average(dc_block[x], 15) for x in range(len(dc_block))]
-    integ = [simpsons_method(mov_avg[x]) for x in range(len(mov_avg))]
-    for x in range(len(mov_avg[0])):
-        accel.put([mov_avg[0][x], mov_avg[1][x], mov_avg[2][x]])
+    band = [band_pass(dc_block[x]) for x in range(len(dc_block))]
+    integ = [simpsons_method(band[x]) for x in range(len(band))]
+    for x in range(len(band[0])):
+        accel.put([band[0][x], band[1][x], band[2][x]])
     r_index = roughness(integ)
     #print(r_index)
     iri.put(r_index)

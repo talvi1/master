@@ -16,15 +16,14 @@ def display(accel, iri):
 #    win2.resize(1000,600)
 #    win2.setWindowTitle('pyqtgraph example: Plotting')
     p2 = win2.addPlot(row=1, col=1, title="Acceleration Mov Avg")
-    p3 = win2.addPlot(row=2, col=1, title='IRI Right')
-    p4 = win2.addPlot(row=3, col=1, title='IRI Left')
-    #p2.setRange()
+    p3 = win2.addPlot(row=2, col=1, title='Roughness Index')
+    p2.setRange(yRange=[-30, 30])
+    p3.setRange(yRange=[0, 5])
     curves = [[] for x in range(5)]
-    curves[0] = p2.plot(pen='r')
+    curves[0] = p2.plot(pen='g')
     curves[1] = p2.plot(pen='b')
     curves[2] = p2.plot(pen='c')
     curves[3] = p3.plot(pen='b')
-    curves[4] = p4.plot(pen='r')
 
     data = [[] for x in range(5)]
     len = [[] for x in range(2)]
@@ -32,15 +31,13 @@ def display(accel, iri):
     global c_iri
     while True:
         update(curves, accel, data, len, iri)
-        if c_accel > 4000:
+        if c_accel > 5000:
             p2.clear()
             p3.clear()
-            p4.clear()
-            curves[0] = p2.plot(pen='r')
+            curves[0] = p2.plot(pen='g')
             curves[1] = p2.plot(pen='b')
             curves[2] = p2.plot(pen='c')
             curves[3] = p3.plot(pen='b')
-            curves[4] = p4.plot(pen='r')
             data = [[] for x in range(5)]
             len = [[] for x in range(2)]
             c_accel = 0

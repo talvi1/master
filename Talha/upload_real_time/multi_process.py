@@ -43,7 +43,7 @@ while True:
 
    # print(elapsed_time)
     #sleep(0.1)
-    if (elapsed_time > 180.0 and elapsed_time < 180.05):
+    if (elapsed_time > 1000.0 and elapsed_time < 1000.05):
         data_collect.finish_collection()
         upload.close_connection()
         proc_parse.terminate()

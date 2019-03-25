@@ -33,8 +33,7 @@ def upload_mysql(data):
             listValue += ")"
         else:
             listValue+="), "
-    #sql = ("SELECT * FROM data_r_pi")
-    sql = ("INSERT INTO data_r_pi (originalImage, processedImage, iri, gpslong,gpslat)  VALUES "+ listValue)
+    sql = ("INSERT INTO data_r_pi (originalImage, streetName, iri, gpslat,gpslong)  VALUES "+ listValue)
 
     cur = conn.cursor()
     cur.execute(sql)

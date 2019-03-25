@@ -17,7 +17,7 @@ iri = Queue()
 data_collect.start_collection(data_queue, status_queue, car_speed)
 
 graph = Process(target=plot.display, args=(accel, iri))
-# graph.start()
+graph.start()
 
 proc_parse = Process(target=data_parse.extract_queue, args=(data_queue, status_queue, accel, car_speed, iri))
 proc_parse.start()
@@ -36,13 +36,13 @@ while True:
             graph.join()
             quit()
 
-   # if (not queue.empty()):
-      #  print(queue.get())
+ #   if (not data_queue.empty()):
+ #       print(data_queue.get())
       #  print(elapsed_time)
 
    # print(elapsed_time)
     #sleep(0.1)
-    if (elapsed_time > 180.0 and elapsed_time < 180.05):
+    if (elapsed_time > 1000.0 and elapsed_time < 1000.05):
         data_collect.finish_collection()
         proc_parse.terminate()
         proc_parse.join()

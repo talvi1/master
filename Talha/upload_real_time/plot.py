@@ -16,16 +16,13 @@ def display(accel, iri):
 #    win2.resize(1000,600)
 #    win2.setWindowTitle('pyqtgraph example: Plotting')
     p2 = win2.addPlot(row=1, col=1, title="Acceleration Mov Avg")
-    p3 = win2.addPlot(row=2, col=1, title='IRI Right')
-    p4 = win2.addPlot(row=3, col=1, title='IRI Left')
+    p3 = win2.addPlot(row=2, col=1, title='Roughness Index')
     #p2.setRange()
     curves = [[] for x in range(5)]
     curves[0] = p2.plot(pen='r')
     curves[1] = p2.plot(pen='b')
     curves[2] = p2.plot(pen='c')
     curves[3] = p3.plot(pen='b')
-    curves[4] = p4.plot(pen='r')
-
     data = [[] for x in range(5)]
     len = [[] for x in range(2)]
     global c_accel
@@ -40,7 +37,6 @@ def display(accel, iri):
             curves[1] = p2.plot(pen='b')
             curves[2] = p2.plot(pen='c')
             curves[3] = p3.plot(pen='b')
-            curves[4] = p4.plot(pen='r')
             data = [[] for x in range(5)]
             len = [[] for x in range(2)]
             c_accel = 0
@@ -73,5 +69,4 @@ def update(curves , accel, data, len, iri):
                 len[1].append(c_iri)
                 data[3].append(roughness[x])
             curves[3].setData(len[1], data[3])
-            #curves[4].setData(len[1], data[4])
             QtGui.QApplication.processEvents()

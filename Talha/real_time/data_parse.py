@@ -134,15 +134,15 @@ def parse_data(list, status, accel, speed, iri):
             list_upload[3].append(list[x])
     roughness = signal_process.process_signal(multi_list, status, accel, speed, iri)
     #z = np.linspace(list_upload[1][0], list_upload[1][-1], len(roughness))
-    lat = np.linspace(list_upload[1][0], list_upload[2][0], len(roughness))
-    long = np.linspace(list_upload[2][0], list_upload[1][0], len(roughness))
-    z = []
-    lesn = int(len(roughness)/len(list_upload[3]))
-    for i in range(len(list_upload[3])):
-        for j in range(lesn):
-            z.append(list_upload[3][i])
+ #   lat = np.linspace(list_upload[1][0], list_upload[2][0], len(roughness))
+ #   long = np.linspace(list_upload[2][0], list_upload[1][0], len(roughness))
+ #   z = []
+ #   lesn = int(len(roughness)/len(list_upload[3]))
+  #  for i in range(len(list_upload[3])):
+   #     for j in range(lesn):
+    #        z.append(list_upload[3][i])
 
-    print(len(z))
+#    print(len(z))
     #print(np.linspace(list_upload[1][0], list_upload[2][-1], len(roughness)))
     # for v in zip(*list_upload):
     #     print(*v)

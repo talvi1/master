@@ -8,7 +8,7 @@ from ftplib import FTP, error_perm
 ftp = ftplib.FTP('roadquality.ca')
 ftp.login("natnael@roadquality.ca","natnael")
 ftp.cwd('public_html/data')
-filenameCV = "/home/pi/Documents/capstone2018/Natnael/image"
+filenameCV = "/home/pi/Documents/capstone2018/Talha/upload_real_time/Wascana_Pkways"
 def placeFiles(ftp, path):
     for name in os.listdir(path):
         localpath = os.path.join(path, name)

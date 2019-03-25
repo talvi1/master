@@ -79,7 +79,7 @@ serial0.write(serial.to_bytes(send_1))
 thread1 = threading.Thread(target=serial_read, args=(serial0,),).start()
 thread2 = threading.Thread(target=gps_read, args=(gps,),).start()
 thread2 = threading.Thread(target=capture_image,).start()
-with open("40km_right_wheel.csv", mode='w', buffering=1) as csvfile:
+with open("30km_left_wheel.csv", mode='w', buffering=1) as csvfile:
 	elapsed_time = time.time() - start_time
 	while elapsed_time < 60.0:
 		elapsed_time = time.time() - start_time
