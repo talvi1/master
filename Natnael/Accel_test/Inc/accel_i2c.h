@@ -6,4 +6,4 @@ uint8_t MPU6050_Init(I2C_HandleTypeDef* I2C);
 int16_t getAccel(I2C_HandleTypeDef* I2C);
 void read_register(I2C_HandleTypeDef* I2C, uint8_t reg, char *name, int length);
 void calibration(I2C_HandleTypeDef* I2C);
-void send_to_xbee(uint8_t *accelerometer_data_to_send_to_xbee);
+void send_to_xbee_for_transmitting(uint8_t *accelerometer_data_to_send_to_xbee);

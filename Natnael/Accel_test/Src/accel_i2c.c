@@ -31,24 +31,14 @@ uint8_t MPU6050_Init(I2C_HandleTypeDef* I2C)
 	}
 	d1[0] = 0x19;
 	d1[1] = 0x71;
-	while(HAL_I2C_Master_Transmit(handle, address, d1, 2, 1000) != HAL_OK);
 	
+	while(HAL_I2C_Master_Transmit(handle, address, d1, 2, 1000) != HAL_OK);
 	uint8_t reg[2];
 	reg[0] = 0x1C;
 	reg[1] = 0x00;
 	if(HAL_I2C_Master_Transmit(handle, address, reg, 2, 1000) != HAL_OK)
 	{
 		return 0x05;
-	}
-//	uint8_t temp;
-//	if(HAL_I2C_Master_Receive(handle, address, &temp, 1, 1000) != HAL_OK)
-	{
-//		return 0x01;
-	}
-//	temp = 0x00;
-//	if(HAL_I2C_Master_Transmit(handle, address, &temp, 1, 1000) != HAL_OK)
-	{
-//		return 0x01;
 	}
 	return var;
 }
@@ -58,9 +48,9 @@ int16_t getAccel(I2C_HandleTypeDef* I2C)
 	uint8_t reg = 0x3B;
 	uint8_t address = 0xD0;
 	uint8_t data[6];
-	int16_t  accel_z;
+	int16_t accel_z;
 	
-//	uint8_t xbeeData[2];
+
 	if(HAL_I2C_Master_Transmit(handle, address, &reg, 1, 1000) != HAL_OK)
 	{
 		return 0x01;
@@ -69,34 +59,8 @@ int16_t getAccel(I2C_HandleTypeDef* I2C)
 	{
 		return 0x01;
 	}
-	//accel_x = (int16_t)(data[0] << 8 | data[1]);
-	//accel_y = (int16_t)(data[2] << 8 | data[3]);
+
 	accel_z = (int16_t)(data[4] << 8 | data[5]);
-	//*(accel_data+index) = data[4];
-	//*(accel_data+(index+1)) = data[5];
-//	xbeeData[0] = data[4];
-//	xbeeData[1] = data[5];
-	
-	//uart_send_int(data[4]);
-	//uart_send_int(data[5]);
-	
-	
-//	float z = accel_z/2048.0;
-//	float z1 = 2.596;
-
-	//print_str("\n\r");
-//	char c[25];
-//	sprintf(c, "%f", z);
-//print_str("{TIMEPLOT|DATA|My Sensor|T|");
-//	print_str(c);
-	//print_str("}");
-//print_str(c);
-	
-//	send_int(xbeeData,2);
-
-	
-//	print_str("\n\r");
-
 		return accel_z;
 }
 
@@ -104,45 +68,26 @@ int16_t getAccel(I2C_HandleTypeDef* I2C)
 void read_register(I2C_HandleTypeDef* I2C, uint8_t reg, char *name, int length)
 {
 	uint8_t data[8];
-	uint8_t address = 0xD0;
-	
+	uint8_t address = 0xD0;	
 	char c[25];
-//	char hex_tmp[33];
-
 	I2C_HandleTypeDef* handle = I2C;
 	if(HAL_I2C_Master_Transmit(handle, address, &reg, 1, 1000) != HAL_OK)
 	{
 		data[0]= 0x01;
 	}
 	
-		while(HAL_I2C_Master_Receive(handle, address, data,length, 1000) != HAL_OK);
-	
-	
+	while(HAL_I2C_Master_Receive(handle, address, data,length, 1000) != HAL_OK);
 	print_str("Reading register ");
 	print_str(name);
-	
 	sprintf(c, "0x%X", *data);
 	print_str(c);
-	
 	print_str("\n\r");
-	
-	
-	
+		
 }
 
-//Accelerometer Calibration 
 
-//A - ZA_OFFSET_H = 0x05
-//  - ZA_OFFSET_L_TC = 0x99
-
-//B - ZA_OFFSET_H = 0x05
-//  - ZA_OFFSET_L_TC = 0xCB
-
-//C - ZA_OFFSET_H = 0x07
-//  - ZA_OFFSET_L_TC = 0x5B
 void calibration(I2C_HandleTypeDef* I2C)
 {
-//	char mesg[25];
 	uint8_t address = 0xD0;
 	I2C_HandleTypeDef* handle = I2C;
 	
@@ -195,56 +140,37 @@ void calibration(I2C_HandleTypeDef* I2C)
 	}
 	
 }
-void send_to_xbee(uint8_t *accelerometer_data_to_send_to_xbee)
+void send_to_xbee_for_transmitting(uint8_t *accelerometer_data_to_send_to_xbee)
 {
-
-
 	uint16_t arsum = 0;
 	const int data_size = 100;
 	uint8_t init[1];
 	uint8_t final_array_to_send[109];
 	
-//	uint8_t Delimiter = 0x7E;
-//	uint8_t Length = 0x00;
-//	uint8_t Length1 =0x00;
-	uint8_t API_identifier = 0x01;
-	uint8_t API_frame_ID = 0x01;
-	uint8_t Destination_address = 0x00;
-	uint8_t Destination_address1 = 0x03;
-	uint8_t Option_byte = 0x00;
-	
-	final_array_to_send[0] = 0x7E;
-	final_array_to_send[1] = 0x00;
-	final_array_to_send[2] = 0x69;
-	final_array_to_send[3] = 0x01;
-	final_array_to_send[4] = 0x01;
-	final_array_to_send[5] = 0x00;
-	final_array_to_send[6] = 0x03;
-	final_array_to_send[7] = 0x00;
+	final_array_to_send[0] = 0x7E; // Delimiter
+	final_array_to_send[1] = 0x00; //	Length
+	final_array_to_send[2] = 0x69; //	Length1
+	final_array_to_send[3] = 0x01; //	API_identifier
+	final_array_to_send[4] = 0x01; //	API_frame_ID
+	final_array_to_send[5] = 0x00; //	Destination_address
+	final_array_to_send[6] = 0x03; //	Destination_address1
+	final_array_to_send[7] = 0x00; //	Option_byte
 	
 	for (int i = 0; i < data_size; i++) 
 	{
 			arsum += *(accelerometer_data_to_send_to_xbee+i); 
 	}
-//	uint16_t sum;
-//	for (int i = 0; i < 8; i++) 
-//	{
-//			sum += final_array_to_send[i]; 
-//	}
-	uint16_t sum = API_identifier + API_frame_ID + Destination_address + Destination_address1 + Option_byte + arsum;
+
+	uint16_t sum = final_array_to_send[3] + final_array_to_send[4] + final_array_to_send[5] + final_array_to_send[6] + final_array_to_send[7] + arsum;
 	uint16_t newsum = 0xff & sum;
 	uint16_t checksum = 0xff - newsum;
  	uint8_t newchecksum = checksum;
 	char c[25];
-	sprintf(c, "%x", newchecksum);
-	print_str("\n\r The newchecksum = ");
-	print_str(c);
-	print_str("\n\r");
+	
 	int i=0;
 	while(i<100)
 	{
 		final_array_to_send[i+8]= *(accelerometer_data_to_send_to_xbee+i);
-		//final_array_to_send[i+9]=;
 		i++;
 	}
 	
@@ -253,9 +179,7 @@ void send_to_xbee(uint8_t *accelerometer_data_to_send_to_xbee)
 	init[0] = 0x42;
 	uart_send_xbee_message(init,sizeof(init));
 	uart_send_xbee_message(final_array_to_send, sizeof(final_array_to_send));
-	//print_str("sent");
 	send_int(final_array_to_send,data_size+9);
-	//print_str((char*)final_array_to_send);
 	
 }
 

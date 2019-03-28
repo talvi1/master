@@ -67,9 +67,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 I2C_HandleTypeDef hi2c1;
-
 SPI_HandleTypeDef hspi1;
-
 UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 
@@ -133,75 +131,33 @@ int main(void)
 	print_str("wassup \n\r");
 	uint8_t x = MPU6050_Init(&hi2c1);
 	calibration(&hi2c1);
-//	uart_send_message(x);
-	
-//	read_register(&hi2c1, SMPLRT_DIV, "SMPLRT_DIV  ",1);
-//	read_register(&hi2c1, ACCEL_CONFIG , "ACCEL_CONFIG   ",1);
-//	read_register(&hi2c1, CONFIG , "CONFIG   ",1);
-//	read_register(&hi2c1, INT_PIN_CFG , "INT_PIN_CFG   ",1);
-//	read_register(&hi2c1, INT_ENABLE , "INT_ENABLE  ",1);
 
 	
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
+while (1)
   {
         if(int_flag == true)
 				{
 					int_flag = false;
-					tempData = getAccel(&hi2c1);
-					//char c[25];
-					//sprintf(c, "%x", tempData);
-					//print_str("\n\r");
-					//print_str(c);
+					tempData = getAccel(&hi2c1); 
 					accel_z_data[accel_index] = (tempData & 0xff00)>>8;
 					accel_z_data[accel_index+1] = tempData & 0xff;
-//					accel_index++; 
-//					char c[25];
-//					sprintf(c, "%u", accel_index);
-//					print_str(c);
-//					print_str("\n\r");
-//					//char c1[25];
-//					sprintf(c, "%u", accel_z_data[accel_index]);
-//					print_str(c);
-//					print_str("\n\r");
-					//uart_send_message(accel_z_data[accel_index]);
 					accel_index = accel_index+2;
 				}
+				
 				if(accel_index == 100)
 				{
-					  send_to_xbee(accel_z_data);
-						//read_register(&hi2c1, SMPLRT_DIV, "SMPLRT_DIV", 1);
-						//print_str("New Data");
-						//send_int(accel_z_data, sizeof(accel_z_data));
-						
-						//print_str("\n\r");
-						accel_index = 0;
-						
+					  send_to_xbee_for_transmitting(accel_z_data);
+						accel_index = 0;					
 				}
 	
-//		 HAL_GPIO_TogglePin(GPIOC, LD4_Pin);
-//		getAccel(&hi2c1);
-//		print_str("\n\r");
-//		read_register(&hi2c1, SMPLRT_DIV, "SMPLRT_DIV  ",1);
-//		read_register(&hi2c1, WHO_AM_I_MPU6050, "WHO_AM_I_MPU6050  ",1);
-//		read_register(&hi2c1, PWR_MGMT_1, "PWR_MGMT_1  ",1);
-//		read_register(&hi2c1, ZA_OFFSET_H, "ZA_OFFSET_H  ",1);
-//		read_register(&hi2c1, ZA_OFFSET_L_TC, "ZA_OFFSET_L_TC  ",1);
-//		read_register(&hi2c1, ZG_OFFS_USRH, "ZG_OFFS_USRH  ",1);
-//		read_register(&hi2c1, ZG_OFFS_USRL, "ZG_OFFS_USRL  ",1);
-//		print_str("\n\r");
-	
-//		read_register(&hi2c1, ACCEL_CONFIG , "ACCEL_CONFIG   ",1);
-//		
-//	HAL_Delay(400);
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
   }
-  /* USER CODE END 3 */
+
+	
+	
 }
 
 /**
