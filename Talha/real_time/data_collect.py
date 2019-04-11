@@ -1,8 +1,8 @@
 import serial
-import board
-import busio
-import adafruit_gps
-from picamera import PiCamera
+#import board
+#import busio
+#import adafruit_gps
+#from picamera import PiCamera
 from multiprocessing import Process, Queue
 import datetime
 from time import sleep
@@ -43,17 +43,17 @@ def gps_read(data_queue, speed_queue, gps):
 		time.sleep(1)
 
 def capture_image(data_queue, speed_queue):
-	camera = PiCamera()
-	camera.rotation = 0
-	camera.resolution = (1920, 1080)
-	camera.framerate = 60
-	camera.brightness = 55
+#	camera = PiCamera()
+#	camera.rotation = 0
+#	camera.resolution = (1920, 1080)
+#	camera.framerate = 60
+#	camera.brightness = 55
 	while True:
 		speed = speed_queue.get()
 		if (speed < 5.0):
 			fileName = 'Image_' + str(datetime.datetime.now().strftime("%d_%b_%Y_%H_%M_%S")) + '.jpg'
 			data_queue.put(fileName)
-			camera.capture(fileName)
+#			camera.capture(fileName)
 		sleep(0.75)
 
 def start_collection(data_queue, status_queue, speed_queue):
